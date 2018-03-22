@@ -17,14 +17,11 @@
 // tozhe samoe tolko s promisami
 
 function applyForVisa(documents) {
-	console.log('Obrabotka zayavlenia...');
-	let promise = new Promise(function (resolve, reject) {
-		setTimeout(function () {
-			Math.random() > .5 ? resolve({}) : reject('V Vize otkazano')
-
-		}, 2000);
-	});
-	return promise;
+    console.log('Obrabotka zayavlenia...');
+    let promise = new Promise((resolve, reject) => {
+        setTimeout(() => Math.random() > .5 ? resolve({}) : reject('V Vize otkazano'), 2000);
+    });
+    return promise;
 }
 
 // applyForVisa({})
@@ -36,8 +33,8 @@ function applyForVisa(documents) {
 // 		});
 
 applyForVisa({})
-	.then(visa => console.info('Visa poluchena'),
-		    reason => console.error(reason));
+    .then(visa => console.info('Visa poluchena'),
+        reason => console.error(reason));
 
 
 // var http = require("http");
