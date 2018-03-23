@@ -293,14 +293,58 @@ program
 			.then(obj => {
 				for (var key in obj.todos) {
 
-					if (obj.todos[key].id == id) {
-						obj.todos[key].push({
-							liked: true
-						});
+					if (obj.todos[key].id == id && obj.todos[key].liked == undefined) {
 
+						obj.todos[key].liked = "true";
 						console.log("Item with id:" + id + " was liked.");
-						console.log(obj.todos[key]);
 
+						return obj;
+					}
+					else if (obj.todos[key].id == id && obj.todos[key].liked == "true") {
+						console.log("uzhe true")
+
+					}
+				}
+
+			})
+			.then(updatedObj => {
+				return JSON.stringify(updatedObj);
+			})
+			.then(data => {
+				writeFile(data);
+
+			})
+			.catch(error => {
+				console.error(`error: ${error}`);
+			});
+
+
+	});
+
+
+
+program
+	.command('unlike <id>')
+	.alias('unlk')
+	.description('Unlike TODO item')
+	.action((id) => {
+		openFile()
+			.then(fd => {
+				return readFile();
+			})
+			.then(data => {
+				return JSON.parse(data);
+			})
+			.then(obj => {
+				for (var key in obj.todos) {
+
+					if (obj.todos[key].id == id && (obj.todos[key].liked == undefined|| obj.todos[key].liked == "false")) {
+						console.log("uzhe false")
+						return obj;
+					}
+					else if (obj.todos[key].id == id && obj.todos[key].liked == "true") {
+						obj.todos[key].liked = "false";
+						console.log("Item with id:" + id + " was unliked.");
 						return obj;
 					}
 				}
@@ -319,6 +363,8 @@ program
 
 
 	});
+
+
 
 program
 	.command('comment <id>')
