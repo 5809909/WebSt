@@ -197,15 +197,20 @@ program
 				return JSON.parse(data);
 			})
 			.then(obj => {
-
-				for (var key in obj.todos) {
-
-					if (obj.todos[key].id == id) {
-						console.log(obj.todos[key]);
+				var key = -1;
+				for (var i = 0; i < obj.todos.length; i++) {
+					if (obj.todos[i].id == id) {
+						key = i;
 					}
 				}
-
+				if (key < 0) {
+					console.log("no such item")
+				}
+				else {
+					console.log(obj.todos[key]);
+				}
 			})
+
 			.catch(error => {
 				console.error(`error: ${error}`);
 			});
