@@ -10,6 +10,36 @@ program
 
 const storagePath = path.resolve('./store.json');
 
+function getDataFromFile() {
+	return openFile()
+		.then(() => {
+			return readFile();
+		})
+		.then(data => {
+			console.log(data);
+			let jsonData = data;
+			console.log(jsonData);
+			if (!jsonData) {
+				jsonData = "{}";
+			}
+			return JSON.parse(jsonData);
+		})
+		.then(obj => {
+			console.log(obj);
+
+			return obj.todos || [];
+		})
+}
+
+function createTodo(data) {
+	return {
+		id:guid(),
+		title: data.title,
+		description: data.description,
+		isLiked:false,
+		comment:null
+	}
+}
 
 function openFile() {
 	return new Promise((resolve, reject) => {
@@ -111,22 +141,14 @@ program
 		prompt(createQuestions)
 			.then(receivedAnswers => {
 				answers = receivedAnswers;
-				return openFile().then()
+				return getDataFromFile();
 			})
-			.then(fd => {
-				return readFile();
-			})
-			.then(data => {
-				return JSON.parse(data);
-			})
-			.then(obj => {
-				newId = guid();
-				obj.todos.push({
-					id: newId,
-					title: answers.title,
-					description: answers.description,
-				});
-				return obj;
+			.then(todos => {
+				const todoItem = createTodo(answers);
+				newId=todoItem.id;
+				const result = [...todos,todoItem];
+				console.log(result);
+				return result;
 			})
 			.then(updatedObj => {
 				return JSON.stringify(updatedObj);
@@ -322,7 +344,6 @@ program
 	});
 
 
-
 program
 	.command('unlike <id>')
 	.alias('unlk')
@@ -338,7 +359,7 @@ program
 			.then(obj => {
 				for (var key in obj.todos) {
 
-					if (obj.todos[key].id == id && (obj.todos[key].liked == undefined|| obj.todos[key].liked == "false")) {
+					if (obj.todos[key].id == id && (obj.todos[key].liked == undefined || obj.todos[key].liked == "false")) {
 						console.log("uzhe false")
 						return obj;
 					}
@@ -363,7 +384,6 @@ program
 
 
 	});
-
 
 
 program
