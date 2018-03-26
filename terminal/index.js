@@ -1,88 +1,44 @@
 #!/usr/bin/env node
 const program = require('commander');
-const {prompt} = require('inquirer');
+const { prompt } = require('inquirer');
 const fs = require('fs');
 const path = require('path');
+const util = require('util');
 
 program
 	.version('0.0.1')
-	.description('TODO app');
+	.description('This is a TODO application');
 
-const storagePath = path.resolve('./store.json');
+const STORAGE_PATH = path.resolve('./store.json');
+const { O_APPEND, O_RDONLY, O_CREAT } = fs.constants;
 
-function getDataFromFile() {
-	return openFile()
+const fsOpen = util.promisify(fs.open);
+const fsReadFile = util.promisify(fs.readFile);
+const fsWriteFile = util.promisify(fs.writeFile);
+
+
+function getAllTodos() {
+	return fsReadFile(STORAGE_PATH, { encoding: 'utf8', flag: O_RDONLY | O_CREAT })
+		.then((data) => {
+			let jsonText = data;
+			if (!jsonText) jsonText = '{}';
+			return JSON.parse(jsonText);
+		})
+		.then((storage) => {
+			return storage.todos || [];
+		});
+}
+
+function saveAllTodos(todos) {
+	return fsOpen(STORAGE_PATH, O_APPEND | O_CREAT)
 		.then(() => {
-			return readFile();
-		})
-		.then(data => {
-			console.log(data);
-			let jsonData = data;
-			console.log(jsonData);
-			if (!jsonData) {
-				jsonData = "{}";
-			}
-			return JSON.parse(jsonData);
-		})
-		.then(obj => {
-			console.log(obj);
-
-			return obj.todos || [];
-		})
-}
-
-function createTodo(data) {
-	return {
-		id:guid(),
-		title: data.title,
-		description: data.description,
-		isLiked:false,
-		comment:null
-	}
-}
-
-function openFile() {
-	return new Promise((resolve, reject) => {
-		fs.open(storagePath, 'a+', (err, fd) => {
-
-			if (err) {
-				console.log("error");
-				reject(err);
-
-				return;
-			}
-
-			resolve(fd);
+			fsWriteFile(STORAGE_PATH, JSON.stringify({ todos }));
 		});
-	});
 }
 
-function readFile() {
-	return new Promise((resolve, reject) => {
-		fs.readFile(storagePath, 'utf8', (err, data) => {
 
-			if (err) {
-				reject(err);
-				return;
-			}
-
-			resolve(data);
-		});
-	});
-}
-
-function writeFile(data) {
-	return new Promise((resolve, reject) => {
-		fs.writeFile(storagePath, data, (err) => {
-
-			if (err) {
-				reject(err);
-				return;
-			}
-
-			resolve();
-		});
-	});
+function findTodoIndex(id, todos) {
+	return todos.findIndex((todo) => todo.id === id);
 }
 
 function guid() {
@@ -91,153 +47,129 @@ function guid() {
 			.toString(16)
 			.substring(1);
 	}
-
 	return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
 }
 
-// Craft questions to present to users
+function print(...args) {
+	console.info(...args);
+}
+
+
+function createTodo(data) {
+	const now = new Date();
+	return {
+		id: guid(),
+		isLiked: false,
+		comment: null,
+		...data,
+	};
+}
+
+function updateTodo(change, todo) {
+	return {
+		...todo,
+		...change,
+	};
+}
+
+
+function createTodoItem(data) {
+	let todoId;
+
+	return getAllTodos()
+		.then((todos) => {
+			const todo = createTodo(data);
+			todoId = todo.id;
+			const result = [...todos, todo];
+			return saveAllTodos(result);
+		})
+		.then(() => todoId);
+}
+
+function updateTodoItem(id, change) {
+	return getAllTodos()
+		.then((todos) => {
+			const index = findTodoIndex(id, todos);
+			const target = todos[index];
+			const result = [...todos];
+
+			result.splice(index, 1, updateTodo(change, target));
+
+			return saveAllTodos(result);
+		})
+		.then(() => id);
+}
+
+function removeTodoItem(id) {
+	return getAllTodos()
+		.then((todos) => {
+			const index = findTodoIndex(id, todos);
+			const result = [...todos];
+
+			const removedItems = result.splice(index, 1);
+
+			return saveAllTodos(result).then(() => removedItems.length);
+		});
+}
+
+
 const createQuestions = [
 	{
-		type: 'input',
-		name: 'title',
-		message: 'Enter title ...'
+		type : 'input',
+		name : 'title',
+		message : 'Enter title ...'
 	},
 	{
-		type: 'input',
-		name: 'description',
-		message: 'Enter description ...'
+		type : 'input',
+		name : 'description',
+		message : 'Enter description ...'
 	},
 ];
 
 const updateQuestions = [
 	{
-		type: 'input',
-		name: 'title',
-		message: 'Enter new title ...'
+		type : 'input',
+		name : 'title',
+		message : 'Enter new title ...'
 	},
 	{
-		type: 'input',
-		name: 'description',
-		message: 'Enter new description ...'
+		type : 'input',
+		name : 'description',
+		message : 'Enter new description ...'
 	},
 ];
 
 const commentQuestions = [
 	{
-		type: 'input',
-		name: 'comment',
-		message: 'Enter comment ...'
+		type : 'input',
+		name : 'comment',
+		message : 'Enter comment ...'
 	},
 ];
 
+
 program
 	.command('create')
-	.alias('cr')
 	.description('Create new TODO item')
 	.action(() => {
-		let answers;
-		let newId;
-
 		prompt(createQuestions)
-			.then(receivedAnswers => {
-				answers = receivedAnswers;
-				return getDataFromFile();
-			})
-			.then(todos => {
-				const todoItem = createTodo(answers);
-				newId=todoItem.id;
-				const result = [...todos,todoItem];
-				console.log(result);
-				return result;
-			})
-			.then(updatedObj => {
-				return JSON.stringify(updatedObj);
-			})
-			.then(data => {
-				writeFile(data);
-				console.log(newId + " is saved");
-			})
-			.catch(error => {
-				console.error(`error: ${error}`);
+			.then(({ title, description }) => createTodoItem({ title, description }))
+			.then(print)
+			.catch((error) => {
+				throw error;
 			});
 	});
 
 program
 	.command('update <id>')
-	.alias('upd')
 	.description('Update TODO item')
 	.action((id) => {
-		prompt(updateQuestions).then(answers => {
-			openFile()
-				.then(fd => {
-					return readFile();
-				})
-				.then(data => {
-					return JSON.parse(data);
-				})
-				.then(obj => {
-					for (var key in obj.todos) {
-
-						if (obj.todos[key].id == id) {
-							for (var item in answers) {
-								obj.todos[key][item] = answers[item];
-							}
-							console.log("Item with id:" + id + " was udated.");
-							console.log(obj.todos[key]);
-
-							return obj;
-						}
-					}
-
-				})
-				.then(updatedObj => {
-					return JSON.stringify(updatedObj);
-				})
-				.then(data => {
-					writeFile(data);
-
-				})
-				.catch(error => {
-					console.error(`error: ${error}`);
-				});
-
-		});
-	});
-
-
-program
-	.command('read <id>')
-	.alias('rd')
-	.description('Read TODO item')
-	.action((id) => {
-
-		openFile()
-			.then(fd => {
-				return readFile();
-			})
-			.then(data => {
-				return JSON.parse(data);
-			})
-			.then(obj => {
-				var key = -1;
-				for (var i = 0; i < obj.todos.length; i++) {
-					if (obj.todos[i].id == id) {
-						key = i;
-					}
-				}
-				if (key < 0) {
-					console.log("no such item")
-				}
-				else {
-					console.log(obj.todos[key]);
-				}
-			})
-
-			.catch(error => {
-				console.error(`error: ${error}`);
+		prompt(updateQuestions)
+			.then(({ title, description }) => updateTodoItem(id, { title, description }))
+			.then(print)
+			.catch((e) => {
+				throw e;
 			});
-
-
 	});
 
 program
@@ -245,33 +177,10 @@ program
 	.alias('rm')
 	.description('Remove TODO item by id')
 	.action((id) => {
-		openFile()
-			.then(fd => {
-				return readFile();
-			})
-			.then(data => {
-				return JSON.parse(data);
-			})
-			.then(obj => {
-				for (var key in obj.todos) {
-
-					if (obj.todos[key].id == id) {
-						obj.todos.splice(key, 1);
-						console.log("Item with id:" + id + " was deleted. ostalos - " + obj.todos.length);
-						return obj;
-					}
-				}
-
-			})
-			.then(updatedObj => {
-				return JSON.stringify(updatedObj);
-			})
-			.then(data => {
-				writeFile(data);
-
-			})
-			.catch(error => {
-				console.error(`error: ${error}`);
+		removeTodoItem(id)
+			.then(print)
+			.catch((e) => {
+				throw e;
 			});
 	});
 
@@ -280,120 +189,40 @@ program
 	.alias('ls')
 	.description('List all TODOs')
 	.action(() => {
-
-		openFile()
-			.then(fd => {
-				return readFile();
-			})
-			.then(data => {
-				return JSON.parse(data);
-			})
-			.then(obj => {
-				for (var key in obj.todos) {
-					console.log(obj.todos[key].id)
-				}
-
-				console.log(obj.todos.length);
-			})
-			.catch(error => {
-				console.error(`error: ${error}`);
-			});
+		getAllTodos().then(print)
 	});
 
 program
 	.command('like <id>')
-	.alias('lk')
 	.description('Like TODO item')
 	.action((id) => {
-		openFile()
-			.then(fd => {
-				return readFile();
-			})
-			.then(data => {
-				return JSON.parse(data);
-			})
-			.then(obj => {
-				for (var key in obj.todos) {
-
-					if (obj.todos[key].id == id && obj.todos[key].liked == undefined) {
-
-						obj.todos[key].liked = "true";
-						console.log("Item with id:" + id + " was liked.");
-
-						return obj;
-					}
-					else if (obj.todos[key].id == id && obj.todos[key].liked == "true") {
-						console.log("uzhe true")
-
-					}
-				}
-
-			})
-			.then(updatedObj => {
-				return JSON.stringify(updatedObj);
-			})
-			.then(data => {
-				writeFile(data);
-
-			})
-			.catch(error => {
-				console.error(`error: ${error}`);
+		updateTodoItem(id, { isLiked: true })
+			.then(print)
+			.catch((e) => {
+				throw e;
 			});
-
-
 	});
-
 
 program
 	.command('unlike <id>')
-	.alias('unlk')
 	.description('Unlike TODO item')
 	.action((id) => {
-		openFile()
-			.then(fd => {
-				return readFile();
-			})
-			.then(data => {
-				return JSON.parse(data);
-			})
-			.then(obj => {
-				for (var key in obj.todos) {
-
-					if (obj.todos[key].id == id && (obj.todos[key].liked == undefined || obj.todos[key].liked == "false")) {
-						console.log("uzhe false")
-						return obj;
-					}
-					else if (obj.todos[key].id == id && obj.todos[key].liked == "true") {
-						obj.todos[key].liked = "false";
-						console.log("Item with id:" + id + " was unliked.");
-						return obj;
-					}
-				}
-
-			})
-			.then(updatedObj => {
-				return JSON.stringify(updatedObj);
-			})
-			.then(data => {
-				writeFile(data);
-
-			})
-			.catch(error => {
-				console.error(`error: ${error}`);
+		updateTodoItem(id, { isLiked: false })
+			.then(print)
+			.catch((e) => {
+				throw e;
 			});
-
-
 	});
-
-
 program
 	.command('comment <id>')
-	.alias('cmt')
 	.description('Comment TODO item')
 	.action((id) => {
-		prompt(commentQuestions).then(answers => {
-			// TODO comment for todo item
-		});
+		prompt(commentQuestions)
+			.then(({ comment }) => updateTodoItem(id, { comment }))
+			.then(print)
+			.catch((e) => {
+				throw e;
+			});
 	});
 
 program.parse(process.argv);
