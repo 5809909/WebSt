@@ -106,6 +106,7 @@ function updateData(id, newData) {
 				const aim = todos[index];
 				const result = [...todos];
 				result.splice(index, 1, {...aim, ...newData});
+                console.log(id);
 				return saveDataToFile(result);
 			} else {
 				console.log(TEXT_NOT_FOUND);
