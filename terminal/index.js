@@ -196,9 +196,6 @@ program
 	.description('Like TODO item')
 	.action((id) => {
 		return updateData(id, {isLiked: true})
-			.then(() => {
-				console.log(id + " is liked")
-			})
 			.catch(error => {
 				console.error(`error: ${error}`);
 			});
@@ -211,9 +208,6 @@ program
 	.description('Unlike TODO item')
 	.action((id) => {
 		return updateData(id, {isLiked: false})
-			.then(() => {
-				console.log(id + " is unliked")
-			})
 			.catch(error => {
 				console.error(`error: ${error}`);
 			});
@@ -227,9 +221,6 @@ program
 	.action((id) => {
 		prompt(commentQuestions)
 			.then(({comment}) => updateData(id, {comment}))
-			.then(() => {
-				console.log(id + " is commented")
-			})
 			.catch(error => {
 				console.error(`error: ${error}`);
 			});
