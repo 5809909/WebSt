@@ -76,9 +76,22 @@
   !*** ./src/index.js ***!
   \**********************/
 /*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-eval("\n\n//# sourceURL=webpack:///./src/index.js?");
+"use strict";
+eval("\r\n\r\nlet welcome = __webpack_require__ (/*! ./welcome */ \"./src/welcome.js\");\r\n\r\n\r\nwelcome(\"home12345\");\r\n\n\n//# sourceURL=webpack:///./src/index.js?");
+
+/***/ }),
+
+/***/ "./src/welcome.js":
+/*!************************!*\
+  !*** ./src/welcome.js ***!
+  \************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\r\n\r\nmodule.exports = function(message) {\r\n    debugger;\r\n    alert('Welcome !!!'+message);\r\n};\n\n//# sourceURL=webpack:///./src/welcome.js?");
 
 /***/ })
 
