@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function(message) {
-    debugger;
-    alert('Welcome !!!'+message);
+module.exports = message =>{
+
+    alert('Welcome !!!${message}'+message);
 };
