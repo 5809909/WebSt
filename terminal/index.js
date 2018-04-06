@@ -68,9 +68,7 @@ function guid() {
 
 function getDataFromFile() {
 	return openFile()
-		.then(() => {
-			return readFile();
-		})
+		.then(readFile)
 		.then(data => {
 			let jsonData = data;
 			if (!jsonData) {
