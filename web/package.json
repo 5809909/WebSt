@@ -4,25 +4,20 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "babel",
-    "webpack": "webpack --progress",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "web": "webpack",
+    "dev": "webpack-dev-server --inline --hot"
   },
-  "babel": {
-    "presets": [
-      "es2017",
-      "react"
-    ]
-  },
-  "author": "",
+
+  "author": "Viktar Krauchyk",
   "license": "ISC",
   "devDependencies": {
-    "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.6.1",
     "react": "^16.3.1",
     "webpack": "^4.5.0",
-    "webpack-cli": "^2.0.14"
+    "webpack-cli": "^2.0.14",
+    "webpack-dev-server": "^3.1.1"
   },
   "dependencies": {}
 }

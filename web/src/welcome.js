@@ -1,6 +1,5 @@
 'use strict';
 
 module.exports = message =>{
-
-    alert('Welcome !!!${message}'+message);
+    alert('Welcome '+message+"!!!!!");
 };
