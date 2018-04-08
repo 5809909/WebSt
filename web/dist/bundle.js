@@ -83,7 +83,7 @@
 
 var welcome = __webpack_require__(/*! ./welcome */ "./src/welcome.js");
 
-welcome("home12345");
+welcome("home654789");
 
 /***/ }),
 
@@ -98,7 +98,7 @@ welcome("home12345");
 
 
 module.exports = function (message) {
-    alert('Welcome ' + message + "?????");
+    alert('Welcome ' + message + "!!!!!");
 };
 
 /***/ })
