@@ -1,5 +1,5 @@
 'use strict';
 
 module.exports = message =>{
-    alert('Welcome '+message+"111111");
+    alert('Welcome '+message+"66666");
 };
