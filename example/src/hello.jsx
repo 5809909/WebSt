@@ -20,6 +20,7 @@ class AddTodo extends Component {
 			</div>
 		);
 	}
+
 }
 const Filters = () => (
 	<div class="filters">
