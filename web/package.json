@@ -2,11 +2,11 @@
   "name": "web",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.jsx",
   "scripts": {
     "web": "webpack",
     "dev": "webpack-dev-server --inline --hot --open",
-    "test0": "jest"
+    "test": "jest"
   },
   "author": "Viktar Krauchyk",
   "license": "ISC",
@@ -16,6 +16,7 @@
     "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
     "css-loader": "^0.28.11",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
@@ -32,7 +33,6 @@
   "dependencies": {
     "npm": "^5.8.0",
     "react": "^16.3.1",
-    "react-dom": "^16.3.1",
-    "redux": "^3.7.2"
+    "react-dom": "^16.3.1"
   }
 }
