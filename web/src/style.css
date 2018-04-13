@@ -228,7 +228,7 @@ body {
     -webkit-transform: translate(50%, -50%) scale(0.95) rotate(0deg);
     transform: translate(50%, -50%) scale(0.95) rotate(0deg);
 }
-.add-todo__input {
+.add-todo__input_title {
     width: 100%;
     border-radius: 5px;
     padding: .5rem 1rem;
@@ -238,10 +238,10 @@ body {
     border: 2px solid #e8ebed;
     transition: background .25s ease-out;
 }
-.add-todo__input:focus {
+.add-todo__input_title:focus {
     background: none;
 }
-.add-todo__input:focus + .add-todo__btn {
+.add-todo__input_title:focus + .add-todo__btn {
     opacity: 1;
     -webkit-transform: translate(50%, -50%) scale(1) rotate(0deg);
     transform: translate(50%, -50%) scale(1) rotate(0deg);

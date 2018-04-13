@@ -13,7 +13,7 @@ class AddTodo extends Component {
 	render() {
 		return (
 			<div class="add-todo">
-				<input class="add-todo__input" onChange={this.handleClick} />
+				<input class="add-todo__input_title" onChange={this.handleClick} />
 				<button class="add-todo__btn">
 					<i class="fa fa-plus" />
 				</button>

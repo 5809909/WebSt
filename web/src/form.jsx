@@ -14,7 +14,11 @@ export class Form extends Component {
     render() {
         return (
             <div class="add-todo">
-                <input class="add-todo__input" ref={this.valueInput} />
+             <span> Title:</span>
+                <input class="add-todo__input_title" ref={this.valueInput} />
+
+            <span> Description </span>
+                <input class="add-todo__input_description" ref={this.valueInput} />
                 <button class="add-todo__btn" onClick={this.handleClick}>
                     <i class="fa fa-plus" />
                 </button>

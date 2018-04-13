@@ -20,6 +20,13 @@ module.exports = {
 			// 	loader: 'eslint-loader',
 			// },
 			{
+				test: /\.(png|svg|jpg|gif)$/,
+				use: [
+					'file-loader'
+				]
+			},
+
+			{
 				test: /\.jsx?$/,
 				exclude: /node_modules/,
 				loader: "babel-loader"
