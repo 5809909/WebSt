@@ -1,5 +1,6 @@
 import React, { PureComponent } from "react";
 import { Textarea } from "./textarea";
+require('font-awesome/css/font-awesome.css');
 
 export class Item extends PureComponent {
   state = { isCommenting: false };
