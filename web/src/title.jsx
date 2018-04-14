@@ -1,3 +1,3 @@
 import React from "react";
 
-export const Title = ({ title }) => <h1 class="todo-title">{title}</h1>;
+export const Title = ({ title }) => <h1 className="todo-title">{title}</h1>;

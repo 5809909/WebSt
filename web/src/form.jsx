@@ -1,28 +1,27 @@
 import React, { Component } from "react";
 
 export class Form extends Component {
-    constructor(props) {
-        super(props);
-        this.valueInput = React.createRef();
-    }
+  constructor(props) {
+    super(props);
+    this.titleInput = React.createRef();
+    this.descriptionInput = React.createRef();
+  }
 
-    handleClick = input => {
-        const { value } = this.valueInput.current;
-        this.props.onChangeInput(value);
-    };
+  handleClick = input => {
+    const title = this.titleInput.current.value;
+    const description = this.descriptionInput.current.value;
+    this.props.onChangeInput({ title, description });
+  };
 
-    render() {
-        return (
-            <div class="add-todo">
-             <span> Title:</span>
-                <input class="add-todo__input_title" ref={this.valueInput} />
-
-            <span> Description </span>
-                <input class="add-todo__input_description" ref={this.valueInput} />
-                <button class="add-todo__btn" onClick={this.handleClick}>
-                    <i class="fa fa-plus" />
-                </button>
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div className="add-todo">
+        <input className="add-todo__input" ref={this.titleInput} />
+        <textarea className="add-todo__input" ref={this.descriptionInput} />
+        <button className="add-todo__btn" onClick={this.handleClick}>
+          <i className="fa fa-plus" />
+        </button>
+      </div>
+    );
+  }
 }
