@@ -8,11 +8,13 @@ export class Item extends PureComponent {
   handleCommenting = () => {
     this.setState(({ isCommenting }) => ({ isCommenting: !isCommenting }));
   };
+
   handleAddingComment = value => {
     const { id, onAddingComment } = this.props;
 
     onAddingComment({ id, value });
   };
+
   render() {
     const {
       id,
