@@ -7,15 +7,15 @@ require('font-awesome/css/font-awesome.css');
 export class Item extends PureComponent {
     state = {
         isCommenting: false,
-        isEdeting: false
+        isUpdating: false
     };
 
     handleCommenting = () => {
         this.setState(({isCommenting}) => ({isCommenting: !isCommenting}));
     };
 
-    handleEdeting = () => {
-        this.setState(({isEdeting}) => ({isEdeting: !isEdeting}));
+    handleUpdating = () => {
+        this.setState(({isUpdating}) => ({isUpdating: !isUpdating}));
     }
 
     handleAddingComment = value => {
@@ -23,10 +23,9 @@ export class Item extends PureComponent {
 
         onAddingComment({id, value});
     };
-    handleEdetingItem = value => {
-        const {id, onEdetingItem} = this.props;
-        console.log("value", value);
-        onEdetingItem({id, value});
+    handleUpdatingItem = value => {
+        const {id, onUpdatingItem} = this.props;
+        onUpdatingItem({id, value});
     }
 
     render() {
@@ -39,8 +38,6 @@ export class Item extends PureComponent {
             isLiked,
             onClick,
             onClickLike,
-            onAddingComment,
-            onEdetingItem,
             onRemoveItem
         } = this.props;
         return (
@@ -64,7 +61,7 @@ export class Item extends PureComponent {
             )}
           </span>
                     <span>
-            <i className="fa fa-pencil" onClick={this.handleEdeting}/>
+            <i className="fa fa-pencil" onClick={this.handleUpdating}/>
           </span>
                     <span>
             <i
@@ -76,16 +73,16 @@ export class Item extends PureComponent {
                 </p>
                 {comments &&
                 (<p>Comments</p>,
-                    <ul>{comments.map(comment => <li>
+                    <ul>{comments.map(comment => <li key={comment}>
                         {comment}</li>)}</ul>)}
                 {this.state.isCommenting && (
                     <Textarea
                         onChangeInput={this.handleAddingComment}
                     />
                 )}
-                {this.state.isEdeting && (
+                {this.state.isUpdating && (
                     <Form
-                        onChangeInput={this.handleEdetingItem}
+                        onChangeInput={this.handleUpdatingItem}
                     />
                 )}
             </li>

@@ -5,7 +5,7 @@
   "main": "index.jsx",
   "scripts": {
     "web": "webpack",
-    "dev": "webpack-dev-server --inline --hot --open",
+    "start": "webpack-dev-server --inline --hot --open",
     "test": "jest"
   },
   "author": "Viktar Krauchyk",

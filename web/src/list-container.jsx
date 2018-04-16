@@ -22,6 +22,7 @@ export class ListContainer extends Component {
         console.log({list})
         localStorage.todos = JSON.stringify(list);
     }
+
     getTodosFromStorage() {
 
         if (typeof localStorage.todos === 'undefined') {
@@ -32,13 +33,14 @@ export class ListContainer extends Component {
             list: JSON.parse(localStorage.todos)
         });
     }
+
     onRemoveItem = id => {
         const {list} = this.state;
 
         const selectedIndex = list.findIndex(item => {
             return item.id === id;
         });
-        list.splice(selectedIndex,1);
+        list.splice(selectedIndex, 1);
         this.setState(state => ({
             list: [...list]
         }));
@@ -75,7 +77,7 @@ export class ListContainer extends Component {
             return item.id === id;
         });
         const {comments} = list[selectedIndex];
-         console.log("value",value);
+
         list[selectedIndex].comments = [...comments, value];
 
         this.setState(state => ({
@@ -84,33 +86,39 @@ export class ListContainer extends Component {
         }));
     };
 
-    handleEdetingItem = ({id,value})=>{
-        const {list} = this.state;
+    handleUpdatingItem = ({id, value}) => {
+        if (value.title) {
+            const {list} = this.state;
 
-        const selectedIndex = list.findIndex(item => {
-            return item.id === id;
-        });
-        const {comments} = list[selectedIndex];
-        list[selectedIndex].title = [value.title];
-        list[selectedIndex].description = [value.description];
+            const selectedIndex = list.findIndex(item => {
+                return item.id === id;
+            });
+            const {comments} = list[selectedIndex];
+            list[selectedIndex].title = [value.title];
+            list[selectedIndex].description = [value.description];
 
-        this.setState(state => ({
-            list: [...list]
+            this.setState(state => ({
+                list: [...list]
 
-        }));
+            }));
+        }
     };
 
     handleAddingItem = ({title, description}) => {
-        const newItem = {id: cuid(), title, description, comments:'', completed: false};
-        this.setState(({list}) => ({list: [...list, newItem]}));
+        if (title) {
+            const newItem = {id: cuid(), title, description, comments: '', completed: false};
+            this.setState(({list}) => ({list: [...list, newItem]}));
+        }
     };
 
     render() {
         const {list} = this.state;
-        if(!list.length){return(
-            <div>NO TODOS
-                <Form onChangeInput={this.handleAddingItem}/></div>
-                )}
+        if (!list.length) {
+            return (
+                <div>NO TODOS
+                    <Form onChangeInput={this.handleAddingItem}/></div>
+            )
+        }
         else return (
 
             <div>
@@ -120,7 +128,7 @@ export class ListContainer extends Component {
                     onItemClick={this.handleItemClick}
                     onClickLike={this.handleLike}
                     onAddingComment={this.handleAddingComment}
-                    onEdetingItem={this.handleEdetingItem}
+                    onUpdatingItem={this.handleUpdatingItem}
                     onRemoveItem={this.onRemoveItem}
                 />
                 <Form onChangeInput={this.handleAddingItem}/>

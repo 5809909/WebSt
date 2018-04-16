@@ -1,7 +1,7 @@
 import React from "react";
 import {Item} from "./item";
 
-export const List = ({list, onItemClick, onClickLike, onAddingComment,onEdetingItem,onRemoveItem}) => (
+export const List = ({list, onItemClick, onClickLike, onAddingComment,onUpdatingItem,onRemoveItem}) => (
     <ul className="todo-list">
         {list.map(item => (
             <Item
@@ -10,7 +10,7 @@ export const List = ({list, onItemClick, onClickLike, onAddingComment,onEdetingI
                 onClick={onItemClick}
                 onClickLike={onClickLike}
                 onAddingComment={onAddingComment}
-                onEdetingItem={onEdetingItem}
+                onUpdatingItem={onUpdatingItem}
                 onRemoveItem={onRemoveItem}
 
             />
