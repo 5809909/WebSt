@@ -72,6 +72,23 @@ export class ListContainer extends Component {
 
         }));
     };
+
+    handleEdetingItem = ({id,value})=>{
+        const {list} = this.state;
+
+        const selectedIndex = list.findIndex(item => {
+            return item.id === id;
+        });
+        const {comments} = list[selectedIndex];
+        console.log("value",value);
+        list[selectedIndex].comments = [...comments, value];
+
+        this.setState(state => ({
+            list: [...list]
+
+        }));
+    }
+
     handleAddingItem = ({title, description}) => {
         const newItem = {id: cuid(), title, description, comments:'', completed: false};
         this.setState(({list}) => ({list: [...list, newItem]}));
@@ -86,6 +103,7 @@ export class ListContainer extends Component {
                     onItemClick={this.handleItemClick}
                     onClickLike={this.handleLike}
                     onAddingComment={this.handleAddingComment}
+                    onEditingItem={this.handleEdetingItem}
                 />
                 <Form onChangeInput={this.handleAddingItem}/>
             </div>
