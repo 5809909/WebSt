@@ -10,19 +10,19 @@ export class ListContainer extends Component {
     };
 
     componentWillMount() {
-        this._getTodosFromStorage();
+        this.getTodosFromStorage();
     }
 
     componentDidUpdate() {
-        this._setCitysToStorage();
+        this.setCitysToStorage();
     }
 
-    _setCitysToStorage() {
+    setCitysToStorage() {
         const {list} = this.state;
         console.log({list})
         localStorage.todos = JSON.stringify(list);
     }
-    _getTodosFromStorage() {
+    getTodosFromStorage() {
 
         if (typeof localStorage.todos === 'undefined') {
             localStorage.todos = '[]';
@@ -32,6 +32,17 @@ export class ListContainer extends Component {
             list: JSON.parse(localStorage.todos)
         });
     }
+    onRemoveItem = id => {
+        const {list} = this.state;
+
+        const selectedIndex = list.findIndex(item => {
+            return item.id === id;
+        });
+        list.splice(selectedIndex,1);
+        this.setState(state => ({
+            list: [...list]
+        }));
+    };
 
     handleItemClick = id => {
         const {list} = this.state;
@@ -80,14 +91,14 @@ export class ListContainer extends Component {
             return item.id === id;
         });
         const {comments} = list[selectedIndex];
-        console.log("value",value);
-        list[selectedIndex].comments = [...comments, value];
+        list[selectedIndex].title = [value.title];
+        list[selectedIndex].description = [value.description];
 
         this.setState(state => ({
             list: [...list]
 
         }));
-    }
+    };
 
     handleAddingItem = ({title, description}) => {
         const newItem = {id: cuid(), title, description, comments:'', completed: false};
@@ -96,14 +107,21 @@ export class ListContainer extends Component {
 
     render() {
         const {list} = this.state;
-        return (
+        if(!list.length){return(
+            <div>NO TODOS
+                <Form onChangeInput={this.handleAddingItem}/></div>
+                )}
+        else return (
+
             <div>
+                {list.length}
                 <List
                     list={list}
                     onItemClick={this.handleItemClick}
                     onClickLike={this.handleLike}
                     onAddingComment={this.handleAddingComment}
-                    onEditingItem={this.handleEdetingItem}
+                    onEdetingItem={this.handleEdetingItem}
+                    onRemoveItem={this.onRemoveItem}
                 />
                 <Form onChangeInput={this.handleAddingItem}/>
             </div>

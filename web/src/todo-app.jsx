@@ -6,7 +6,7 @@ import styles from "./style.css";
 export const TodoApp = ({ name }) => {
   const appTitle = "Todos";
   return (
-    <div class="todo-app">
+    <div className="todo-app">
       <Title title={appTitle} />
       <ListContainer />
     </div>

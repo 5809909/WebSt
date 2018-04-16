@@ -1,5 +1,6 @@
 import React, {PureComponent} from "react";
 import {Textarea} from "./textarea";
+import {Form} from "./form"
 
 require('font-awesome/css/font-awesome.css');
 
@@ -23,9 +24,9 @@ export class Item extends PureComponent {
         onAddingComment({id, value});
     };
     handleEdetingItem = value => {
-        const {id, onEditingItem} = this.props;
-
-        onEditingItem({id, value});
+        const {id, onEdetingItem} = this.props;
+        console.log("value", value);
+        onEdetingItem({id, value});
     }
 
     render() {
@@ -38,7 +39,9 @@ export class Item extends PureComponent {
             isLiked,
             onClick,
             onClickLike,
-            onAddingComment
+            onAddingComment,
+            onEdetingItem,
+            onRemoveItem
         } = this.props;
         return (
             <li className={`todo ${completed && "todo--completed"}`}>
@@ -63,17 +66,25 @@ export class Item extends PureComponent {
                     <span>
             <i className="fa fa-pencil" onClick={this.handleEdeting}/>
           </span>
+                    <span>
+            <i
+                className={"fa fa-trash"}
+                onClick={() => onRemoveItem(id)}
+            />
+          </span>
+
                 </p>
                 {comments &&
                 (<p>Comments</p>,
-                    <ul>{comments.map(comment => <li>{comment}</li>)}</ul>)}
+                    <ul>{comments.map(comment => <li>
+                        {comment}</li>)}</ul>)}
                 {this.state.isCommenting && (
                     <Textarea
                         onChangeInput={this.handleAddingComment}
                     />
                 )}
                 {this.state.isEdeting && (
-                    <Textarea
+                    <Form
                         onChangeInput={this.handleEdetingItem}
                     />
                 )}
