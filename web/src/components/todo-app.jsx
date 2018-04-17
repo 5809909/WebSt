@@ -1,14 +1,13 @@
 import React, { Component } from "react";
-import { ListContainer } from "./list-container";
+import { Container } from "./container";
 import { Title } from "./title";
-import styles from "./styles.css";
 
 export const TodoApp = ({ name }) => {
   const appTitle = "Todos";
   return (
-    <div className="todo-app">
+    <div className="todo-app flex">
       <Title title={appTitle} />
-      <ListContainer />
+      <Container />
     </div>
   );
 };

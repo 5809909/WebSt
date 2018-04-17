@@ -2,9 +2,12 @@ import React, {Component} from "react";
 import cuid from "cuid";
 import {Form} from "./form";
 import {List} from "./list";
+import  styles from  "./css/container.css"   ;
+//import styles from "../styles.css";
 
 
-export class ListContainer extends Component {
+
+export class Container extends Component {
     state = {
         list: []
     };
@@ -124,7 +127,8 @@ export class ListContainer extends Component {
         }
         else return (
 
-            <div>
+            <div className="container">
+                <Form  onChangeInput={this.handleAddingItem}/>
                 <List
                     list={list}
                     onItemClick={this.handleItemClick}
@@ -133,7 +137,7 @@ export class ListContainer extends Component {
                     onUpdatingItem={this.handleUpdatingItem}
                     onRemoveItem={this.onRemoveItem}
                 />
-                <Form onChangeInput={this.handleAddingItem}/>
+
             </div>
         );
     }
