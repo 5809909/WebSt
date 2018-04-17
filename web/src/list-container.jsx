@@ -115,14 +115,16 @@ export class ListContainer extends Component {
         const {list} = this.state;
         if (!list.length) {
             return (
-                <div>NO TODOS
-                    <Form onChangeInput={this.handleAddingItem}/></div>
+                <div>
+                    <Form onChangeInput={this.handleAddingItem}/>
+                    <p>NO TODOS</p>
+                </div>
+
             )
         }
         else return (
 
             <div>
-                {list.length}
                 <List
                     list={list}
                     onItemClick={this.handleItemClick}
