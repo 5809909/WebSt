@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { ListContainer } from "./list-container";
-import { Title } from "./title";
-import styles from "./styles.css";
+import { ListContainer } from "./components/list-container";
+import { Title } from "./components/title";
+import styles from "./components/styles.css";
 
 export const TodoApp = ({ name }) => {
   const appTitle = "Todos";

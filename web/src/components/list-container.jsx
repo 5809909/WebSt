@@ -5,19 +5,23 @@ import {List} from "./list";
 
 
 export class ListContainer extends Component {
-    state = {
-        list: []
-    };
+    constructor (props){
+        super(props);
+        this.state = {
+            list: []
+        };
+}
+
 
     componentWillMount() {
         this.getTodosFromStorage();
     }
 
     componentDidUpdate() {
-        this.setCitysToStorage();
+        this.setTodosToStorage();
     }
 
-    setCitysToStorage() {
+    setTodosToStorage() {
         const {list} = this.state;
         console.log({list})
         localStorage.todos = JSON.stringify(list);
