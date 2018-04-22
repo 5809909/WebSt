@@ -1,14 +1,14 @@
 import React, { Component } from "react";
-import { ListContainer } from "./list-container";
-import { Title } from "./title";
-import styles from "./style.css";
+import { ListContainer } from "./components/list-container";
+import { Title } from "./components/title";
+
 
 export const TodoApp = ({ name }) => {
-  const appTitle = "Todos";
-  return (
-    <div class="todo-app">
-      <Title title={appTitle} />
-      <ListContainer />
-    </div>
-  );
+    const appTitle = "Todos";
+    return (
+        <div className="todo-app">
+            <Title title={appTitle} />
+            <ListContainer />
+        </div>
+    );
 };

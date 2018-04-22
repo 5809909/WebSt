@@ -18,6 +18,7 @@ export class Textarea extends Component {
     return (
       <textarea
         className="add-todo__input"
+        placeholder="Enter comment here"
         ref={this.input}
         onKeyDown={this.handleKeyDown}
       />

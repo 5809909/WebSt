@@ -1,6 +1,6 @@
 import React from 'react';
 import {render}  from 'react-dom';
-import { TodosApp } from './todos-app.jsx';
+import { TodoApp } from './todo-app';
 
 render(<TodosApp/>, document.getElementById("root"));
 
