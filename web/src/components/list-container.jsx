@@ -13,7 +13,6 @@ export class ListContainer extends Component {
         };
 }
 
-
     componentWillMount() {
         this.getTodosFromStorage();
     }
