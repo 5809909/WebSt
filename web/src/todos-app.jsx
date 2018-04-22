@@ -1,24 +1,14 @@
 import React, { Component } from "react";
-import Form from './components/Form';
-import {Title} from "./components/title";
-import {List} from "./list";
+import { ListContainer } from "./components/list-container";
+import { Title } from "./components/title";
 
 
-const apTitle = "Todos Application";
-
-export class TodosApp extends Component{
-    render() {
-        return(
-
-            <div className="appTodo">
-                <Title title={apTitle}/>
-                <Form/>
-
-            </div>
-
-        )
-    }
-
-
-
-}
+export const TodosApp = ({ name }) => {
+    const appTitle = "Todos";
+    return (
+        <div className="todo-app">
+            <Title title={appTitle} />
+            <ListContainer />
+        </div>
+    );
+};

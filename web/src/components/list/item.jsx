@@ -1,6 +1,6 @@
 import React, {PureComponent} from "react";
-import {Textarea} from "../form/textarea";
-import {Form} from "../form/form"
+import {Form} from "../form";
+import {Textarea} from "../form";
 
 require('font-awesome/css/font-awesome.css');
 
@@ -45,7 +45,7 @@ export class Item extends PureComponent {
             <li className={`todo ${completed && "todo--completed"}`}>
 
         <span onClick={() => onClick(id)} className="todo__content">
-           <i className={`fa fa-circle-o ${completed ? "fa-dot-circle-o" : ""}`}/>
+           <i className={`fa  ${completed ? "fa-check-square-o" : ""}`}/>
             {title}
         </span>
                 <div>{description}</div>

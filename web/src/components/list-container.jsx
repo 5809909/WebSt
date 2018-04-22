@@ -1,7 +1,7 @@
 import React, {Component} from "react";
-import cuid from "cuid";
-import {Form} from "./form/form";
-import {List} from "./list/list";
+import guid from "../utils"
+import {Form} from "./form/";
+import {List} from "./list/";
 import styles from "./css/styles.css"
 
 
@@ -110,7 +110,7 @@ export class ListContainer extends Component {
 
     handleAddingItem = ({title, description}) => {
         if (title) {
-            const newItem = {id: cuid(), title, description, comments: '', completed: false};
+            const newItem = {id: guid(), title, description, comments: '', completed: false};
             this.setState(({list}) => ({list: [...list, newItem]}));
         }
     };
