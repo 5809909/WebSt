@@ -1,7 +1,8 @@
 import React, {Component} from "react";
 import cuid from "cuid";
-import {Form} from "./form";
-import {List} from "./list";
+import {Form} from "./form/form";
+import {List} from "./list/list";
+import styles from "./css/styles.css"
 
 
 export class ListContainer extends Component {

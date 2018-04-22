@@ -1,6 +1,6 @@
 import React, {PureComponent} from "react";
-import {Textarea} from "./textarea";
-import {Form} from "./form"
+import {Textarea} from "../form/textarea";
+import {Form} from "../form/form"
 
 require('font-awesome/css/font-awesome.css');
 
