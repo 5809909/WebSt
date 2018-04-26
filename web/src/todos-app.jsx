@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ListContainer } from "./components/list-container";
+import { ListContainer } from "./containers/list-container";
 import { Title } from "./components/title";
 
 

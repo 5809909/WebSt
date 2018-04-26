@@ -1,20 +1,20 @@
 import React, {Component} from "react";
 import guid from "../utils"
-import {Form} from "./form/";
-import {List} from "./list/";
-import styles from "./css/styles.css"
+import {List} from "../components/list/index";
+import styles from "../components/css/styles.css"
+import {Form} from "../components/form/index";
+import todosListDAO from '../dao/LocalStorageTodosListDAO'   ;
+import TodosListService from '../services/TodosListService';
 
 
 export class ListContainer extends Component {
-    constructor (props){
-        super(props);
-        this.state = {
-            list: []
-        };
-}
+    state = {
+        list: []
+    };
+
 
     componentWillMount() {
-        this.getTodosFromStorage();
+        this.todosListService = new TodosListService(todosListDAO);
     }
 
     componentDidUpdate() {
