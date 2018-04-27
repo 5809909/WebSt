@@ -13,19 +13,17 @@ export class ListContainer extends Component {
 	componentWillMount() {
 		console.log("willMount");
 		this.todosListService = new TodosListService(todosListDAO);
-		const todosF = todosListDAO.getAllTodos();
-		console.log("todosF", todosF);
-		const todosI = (todosF.length);
-
-		console.log("todosI", todosI);
-
-		this.setState({list: todosI});
-
+		// const todosF = todosListDAO.getAllTodos().then((todos)=>{
+         //    this.setState({list: todos})
+		// });
 
 	}
 
-	componentDidUpdate() {
-		console.log("didUpd");
+	componentDidMount() {
+
+        const todosF = todosListDAO.getAllTodos().then((todos)=>{
+            this.setState({list: todos})
+        });
 	}
 
 
