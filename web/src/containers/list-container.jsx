@@ -1,144 +1,62 @@
 import React, {Component} from "react";
-import guid from "../utils"
-import {List} from "../components/list/index";
-import styles from "../components/css/styles.css"
-import {Form} from "../components/form/index";
-import todosListDAO from '../dao/LocalStorageTodosListDAO'   ;
+import {Form} from "../components/form/form";
+import {List} from "../components/list";
+
+import todosListDAO from '../dao/LocalStorageTodosListDAO';
 import TodosListService from '../services/TodosListService';
 
-
 export class ListContainer extends Component {
-    state = {
-        list: []
-    };
+	state = {
+		list: []
+	};
+
+	componentWillMount() {
+		console.log("willMount");
+		this.todosListService = new TodosListService(todosListDAO);
+		const todosF = todosListDAO.getAllTodos();
+		console.log("todosF", todosF);
+		const todosI = (todosF.length);
+
+		console.log("todosI", todosI);
+
+		this.setState({list: todosI});
 
 
-    componentWillMount() {
-        this.todosListService = new TodosListService(todosListDAO);
-    }
+	}
 
-    componentDidUpdate() {
-        this.setTodosToStorage();
-    }
+	componentDidUpdate() {
+		console.log("didUpd");
+	}
 
-    setTodosToStorage() {
-        const {list} = this.state;
-        console.log({list})
-        localStorage.todos = JSON.stringify(list);
-    }
 
-    getTodosFromStorage() {
+	handleLike = id => {
+		this.todosListService.likeItem(id);
+	};
 
-        if (typeof localStorage.todos === 'undefined') {
-            localStorage.todos = '[]';
-        }
+	handleAddingComment = ({id, value}) => {
+		this.todosListService.addItemComment(id, value);
+	};
 
-        this.setState({
-            list: JSON.parse(localStorage.todos)
-        });
-    }
+	handleAddingItem = (data) => {
 
-    onRemoveItem = id => {
-        const {list} = this.state;
+		this.todosListService.createTodoItem(data);
+	};
 
-        const selectedIndex = list.findIndex(item => {
-            return item.id === id;
-        });
-        list.splice(selectedIndex, 1);
-        this.setState(state => ({
-            list: [...list]
-        }));
-    };
 
-    handleItemClick = id => {
-        const {list} = this.state;
-
-        const selectedIndex = list.findIndex(item => {
-            return item.id === id;
-        });
-
-        list[selectedIndex].completed = !list[selectedIndex].completed;
-        this.setState(state => ({
-            list: [...list]
-        }));
-    };
-    handleLike = id => {
-        const {list} = this.state;
-
-        const selectedIndex = list.findIndex(item => {
-            return item.id === id;
-        });
-
-        list[selectedIndex].isLiked = !list[selectedIndex].isLiked;
-        this.setState(state => ({
-            list: [...list]
-        }));
-    };
-    handleAddingComment = ({id, value}) => {
-        const {list} = this.state;
-
-        const selectedIndex = list.findIndex(item => {
-            return item.id === id;
-        });
-        const {comments} = list[selectedIndex];
-
-        list[selectedIndex].comments = [...comments, value];
-
-        this.setState(state => ({
-            list: [...list]
-
-        }));
-    };
-
-    handleUpdatingItem = ({id, value}) => {
-        if (value.title) {
-            const {list} = this.state;
-
-            const selectedIndex = list.findIndex(item => {
-                return item.id === id;
-            });
-            const {comments} = list[selectedIndex];
-            list[selectedIndex].title = [value.title];
-            list[selectedIndex].description = [value.description];
-
-            this.setState(state => ({
-                list: [...list]
-
-            }));
-        }
-    };
-
-    handleAddingItem = ({title, description}) => {
-        if (title) {
-            const newItem = {id: guid(), title, description, comments: '', completed: false};
-            this.setState(({list}) => ({list: [...list, newItem]}));
-        }
-    };
-
-    render() {
-        const {list} = this.state;
-        if (!list.length) {
-            return (
-                <div>
-                    <Form onChangeInput={this.handleAddingItem}/>
-                    <p>NO TODOS</p>
-                </div>
-
-            )
-        }
-        else return (
-
-            <div>
-                <List
-                    list={list}
-                    onItemClick={this.handleItemClick}
-                    onClickLike={this.handleLike}
-                    onAddingComment={this.handleAddingComment}
-                    onUpdatingItem={this.handleUpdatingItem}
-                    onRemoveItem={this.onRemoveItem}
-                />
-                <Form onChangeInput={this.handleAddingItem}/>
-            </div>
-        );
-    }
+	render() {
+		//	let p= this.todosListService.todosListDAO.getAllTodos();
+		console.log("this.state", this.state);
+		const {list} = this.state;
+		return (
+			<div>
+				<List
+					list={list}
+					onItemClick={this.handleItemClick}
+					onClickLike={this.handleLike}
+					onAddingComment={this.handleAddingComment}
+				/>
+				<Form onChangeInput={this.handleAddingItem}/>
+			</div>
+		);
+	}
 }

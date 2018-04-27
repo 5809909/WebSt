@@ -1,21 +1,21 @@
 export default class LocalStorageTodosListDAO {
-    /**
-     * @return {TodoObject[]}
-     */
-    getAllTodos() {
-        if (typeof window.localStorage.todos === 'undefined') {
-            window.localStorage.todos = '[]';
-            console.log("1111");
-        }
+	/**
+	 * @return {TodoObject[]}
+	 */
+	static getAllTodos() {
+		if (typeof window.localStorage.todos === 'undefined') {
+			window.localStorage.todos = '[]';
+		}
+	//	console.log(JSON.parse(window.localStorage.getItem('todos')))
+		return Promise.resolve(JSON.parse(window.localStorage.getItem('todos')));
+	}
 
-        return Promise.resolve(JSON.parse(window.localStorage.getItem('todos')));
-    }
-
-    /**
-     * @param {TodoObject[]} todos
-     */
-    saveAllTodos(todos) {
-        window.localStorage.setItem('todos', JSON.stringify(todos));
-        return Promise.resolve();
-    }
+	/**
+	 * @param {TodoObject[]} todos
+	 */
+	static saveAllTodos(todos) {
+		window.localStorage.setItem('todos', JSON.stringify(todos));
+		//console.log("todos ",todos);
+		return Promise.resolve();
+	}
 }
