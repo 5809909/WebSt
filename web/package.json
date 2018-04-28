@@ -11,13 +11,17 @@
   "author": "Viktar Krauchyk",
   "license": "ISC",
   "devDependencies": {
+    "@types/jest": "^22.2.3",
+    "@types/prop-types": "^15.5.2",
+    "@types/sinon": "^4.3.1",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
+    "babel-jest": "^22.4.3",
     "babel-loader": "^7.1.4",
+    "babel-plugin-syntax-object-rest-spread": "^6.13.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-0": "^6.24.1",
     "css-loader": "^0.28.11",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
@@ -28,6 +32,7 @@
     "file-loader": "^1.1.11",
     "font-awesome": "^4.7.0",
     "jest": "^22.4.3",
+    "sinon": "^4.5.0",
     "style-loader": "^0.20.3",
     "url-loader": "^1.0.1",
     "webpack": "^4.6.0",
@@ -36,6 +41,7 @@
   },
   "dependencies": {
     "npm": "^5.8.0",
+    "prop-types": "^15.6.1",
     "react": "^16.3.2",
     "react-dom": "^16.3.2"
   }

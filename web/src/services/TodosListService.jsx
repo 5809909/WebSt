@@ -1,10 +1,7 @@
-import todoService from './todoService';
-//import todosListDAO from '../dao/todosListDAO';
-
-
 export default class TodosListService {
-	constructor(todosListDAO) {
+	constructor(todosListDAO, todoService) {
 		this.todosListDAO = todosListDAO;
+		this.todoService = todoService;
 	}
 
 	// eslint-disable-next-line no-unused-vars
@@ -16,18 +13,16 @@ export default class TodosListService {
 	 * @param {Object} data
 	 * @param {string} data.title
 	 * @param {string} data.description
+	 * @return {Promise<string>}
 	 */
 	createTodoItem(data) {
 		let todoId;
 
 		return this.todosListDAO.getAllTodos()
 			.then((todos) => {
-				console.log("todos ",todos);
-				const todo = todoService.createTodo(data);
+				const todo = this.todoService.createTodo(data);
 				todoId = todo.id;
 				const result = [...todos, todo];
-				//	console.log("result ",result);
-
 				return this.todosListDAO.saveAllTodos(result);
 			})
 			.then(() => todoId);
@@ -65,12 +60,4 @@ export default class TodosListService {
 	likeItem(todoId) {
 		this.updateTodoItem(todoId, {isLiked: true});
 	}
-
-
-	// listItems() {
-	// 	return this.todosListDAO.getAllTodos()
-	// 		.then(
-	// 	list => console.log("lllllll",list)
-	// 		)
-	// }
 }
