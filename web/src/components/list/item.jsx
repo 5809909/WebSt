@@ -16,7 +16,7 @@ export class Item extends PureComponent {
 
     handleUpdating = () => {
         this.setState(({isUpdating}) => ({isUpdating: !isUpdating}));
-    }
+    };
 
     handleAddingComment = value => {
         const {id, onAddingComment} = this.props;
@@ -38,6 +38,7 @@ export class Item extends PureComponent {
             isLiked,
             onClick,
             onClickLike,
+            onClickUnlike,
             onRemoveItem
         } = this.props;
         return (
@@ -71,7 +72,7 @@ export class Item extends PureComponent {
                 <span>
             <i
                 className={`fa fa-heart ${isLiked ? "fa-heart-active" : ""}`}
-                onClick={() => onClickLike(id)}
+                onClick={() => isLiked ? onClickUnlike(id):onClickLike(id)}
             />
           </span>
                 <span>
