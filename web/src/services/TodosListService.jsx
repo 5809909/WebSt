@@ -58,19 +58,28 @@ export default class TodosListService {
     likeItem(todoId) {
         this.updateTodoItem(todoId, {isLiked: true});
     }
-
+    /**
+     * @param {string} todoId
+     */
     unlikeItem(todoId) {
         this.updateTodoItem(todoId, {isLiked: false});
     }
-
+    /**
+     * @param {string} todoId
+     */
     completeItem(todoId) {
         this.updateTodoItem(todoId, {completed: true});
     }
-
+    /**
+     * @param {string} todoId
+     */
     uncompleteItem(todoId) {
         this.updateTodoItem(todoId, {completed: false});
     }
-
+    /**
+     * @param {string} todoId
+     * @return {Promise<string>}
+     */
     removeItem(todoId) {
         return this.todosListDAO.getAllTodos()
             .then((todos) => {
