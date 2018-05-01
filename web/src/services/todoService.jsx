@@ -5,11 +5,12 @@ export default class TodoService {
 	createTodo(data) {
 		const now = new Date();
 		return {
-			comment: null,
-			createdDate: now,
-			createdByUserId: ACCOUNT_ID,
-			id: guid(),
-			isLiked: false,
+            id: guid(),
+            completed:false,
+            isLiked: false,
+            createdDate: now,
+            comment: null,
+            createdByUserId: ACCOUNT_ID,
 			lastUpdateDate: now,
 			lastUpdateByUserId: ACCOUNT_ID,
 			...data,

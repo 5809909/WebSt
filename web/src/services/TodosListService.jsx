@@ -67,5 +67,10 @@ export default class TodosListService {
     unlikeItem(todoId) {
         this.updateTodoItem(todoId, {isLiked: false});
     }
-
+    completeItem(todoId) {
+        this.updateTodoItem(todoId, {completed: true});
+    }
+    uncompleteItem(todoId) {
+        this.updateTodoItem(todoId, {completed: false});
+    }
 }

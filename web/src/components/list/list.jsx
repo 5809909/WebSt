@@ -5,7 +5,7 @@ import {noop} from '../../utils';
 import Placeholder from './placeholder';
 
 export const List = ({
-                         list, onItemClick, onClickLike, onClickUnlike, onAddingComment, onUpdatingItem, onRemoveItem
+                         list, onClickCompleted,onClickUncompleted, onClickLike, onClickUnlike, onAddingComment, onUpdatingItem, onRemoveItem
                      }) => {
     if (!list || !list.length) {
         return <Placeholder/>;
@@ -17,7 +17,8 @@ export const List = ({
                 <Item
                     key={item.id}
                     {...item}
-                    onClick={onItemClick}
+                    onClickCompleted={onClickCompleted}
+                    onClickUncompleted={onClickUncompleted}
                     onClickLike={onClickLike}
                     onClickUnlike={onClickUnlike}
                     onAddingComment={onAddingComment}
@@ -32,7 +33,8 @@ export const List = ({
 List.propTypes = {
     // eslint-disable-next-line react/forbid-prop-types
     list: PropTypes.array,
-    onItemClick: PropTypes.func,
+    onClickCompleted: PropTypes.func,
+    onClickUncompleted: PropTypes.func,
     onClickLike: PropTypes.func,
     onClickUnlike: PropTypes.func,
     onAddingComment: PropTypes.func,
@@ -42,8 +44,10 @@ List.propTypes = {
 
 List.defaultProps = {
     list: [],
-    onItemClick: noop,
+    onClickCompleted: noop,
+    onClickUncompleted: noop,
     onClickLike: noop,
+    onClickUnlike: noop,
     onAddingComment: noop,
     onUpdatingItem: noop,
     onRemoveItem: noop,

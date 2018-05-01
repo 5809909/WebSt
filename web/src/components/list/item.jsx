@@ -36,7 +36,8 @@ export class Item extends PureComponent {
             completed,
             comments,
             isLiked,
-            onClick,
+            onClickCompleted,
+            onClickUncompleted,
             onClickLike,
             onClickUnlike,
             onRemoveItem
@@ -45,13 +46,14 @@ export class Item extends PureComponent {
 
             <li className={`todo ${completed && "todo--completed"}`}>
 
-        <span onClick={() => onClick(id)} className="todo__content">
+        <span onClick={() => completed ? onClickUncompleted(id):onClickCompleted(id)} className="todo__content">
            <i className={`fa  ${completed ? "fa-check-square-o" : ""}`}/>
             {title}
         </span>
                 <div>{description}</div>
 
-                {comments &&
+                {comments
+                &&
                 (<p>Comments</p>,
                     <ul>{comments.map(comment => <li key={comment}>
                         {comment}</li>)}</ul>)}
