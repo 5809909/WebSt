@@ -15,6 +15,9 @@ export class ListContainer extends Component {
     handleUncompleted = id => {
         this.props.todosListService.uncompleteItem(id);
     };
+    handleDeleted = id => {
+        this.props.todosListService.removeItem(id);
+    };
 
     handleAddingComment = ({id, value}) => {
         this.props.todosListService.addItemComment(id, value);
@@ -43,6 +46,7 @@ export class ListContainer extends Component {
                     onClickUnlike={this.handleUnlike}
                     onAddingComment={this.handleAddingComment}
                     onUpdatingItem={this.handleUpdatingItem}
+                    onRemoveItem={this.handleDeleted}
                 />
                 <Form onChangeInput={this.handleAddingItem}/>
             </div>

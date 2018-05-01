@@ -34,7 +34,7 @@ export class Item extends PureComponent {
             title,
             description,
             completed,
-            comments,
+            comment,
             isLiked,
             onClickCompleted,
             onClickUncompleted,
@@ -52,11 +52,7 @@ export class Item extends PureComponent {
         </span>
                 <div>{description}</div>
 
-                {comments
-                &&
-                (<p>Comments</p>,
-                    <ul>{comments.map(comment => <li key={comment}>
-                        {comment}</li>)}</ul>)}
+                {comment}
                 <div>
                     {this.state.isCommenting && (
                         <Textarea
