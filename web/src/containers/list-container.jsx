@@ -3,19 +3,19 @@ import {Form} from "../components/form/form";
 import {List} from "../components/list";
 
 export class ListContainer extends Component {
-    handleLike = id => {
+    handleLikeItem = id => {
         this.props.todosListService.likeItem(id);
     };
-    handleUnlike = id => {
+    handleUnlikeItem = id => {
         this.props.todosListService.unlikeItem(id);
     };
-    handleCompleted = id => {
+    handleCompleteItem = id => {
         this.props.todosListService.completeItem(id);
     };
-    handleUncompleted = id => {
+    handleUncompleteItem = id => {
         this.props.todosListService.uncompleteItem(id);
     };
-    handleDeleted = id => {
+    handleDeleteItem = id => {
         this.props.todosListService.removeItem(id);
     };
 
@@ -40,13 +40,13 @@ export class ListContainer extends Component {
             <div>
                 <List
                     list={list}
-                    onClickCompleted={this.handleCompleted}
-                    onClickUncompleted={this.handleUncompleted}
-                    onClickLike={this.handleLike}
-                    onClickUnlike={this.handleUnlike}
+                    onClickCompleted={this.handleCompleteItem}
+                    onClickUncompleted={this.handleUncompleteItem}
+                    onClickLike={this.handleLikeItem}
+                    onClickUnlike={this.handleUnlikeItem}
                     onAddingComment={this.handleAddingComment}
                     onUpdatingItem={this.handleUpdatingItem}
-                    onRemoveItem={this.handleDeleted}
+                    onRemoveItem={this.handleDeleteItem}
                 />
                 <Form onChangeInput={this.handleAddingItem}/>
             </div>

@@ -2,6 +2,6 @@ import React from 'react';
 
 export default function Placeholder() {
   return (
-    <span>No data</span>
+    <span className="text-noData">No data</span>
   );
 }

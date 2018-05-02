@@ -20298,7 +20298,7 @@ var ListContainer = exports.ListContainer = function (_Component) {
                 _react2.default.createElement(_list.List, {
                     list: list,
                     onItemClick: this.handleItemClick,
-                    onClickLike: this.handleLike,
+                    onClickLike: this.handleLikeItem,
                     onAddingComment: this.handleAddingComment
                 }),
                 _react2.default.createElement(_form.Form, { onChangeInput: this.handleAddingItem })
@@ -20444,7 +20444,7 @@ var Textarea = exports.Textarea = function (_Component) {
       return _react2.default.createElement("textarea", {
         className: "add-todo__input",
         ref: this.input,
-        onKeyDown: this.handleKeyDown
+        onKeyDown: this.handleClick
       });
     }
   }]);

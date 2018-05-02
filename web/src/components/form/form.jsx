@@ -7,12 +7,16 @@ export class Form extends Component {
     this.descriptionInput = React.createRef();
   }
 
-  handleClick = input => {
+  handleClick = () => {
     const title = this.titleInput.current.value;
     const description = this.descriptionInput.current.value;
-    this.props.onChangeInput({ title, description });
-      this.titleInput.current.value="";
-      this.descriptionInput.current.value="";
+
+		if (title) {
+			this.props.onChangeInput({title, description});
+			this.titleInput.current.value="";
+			this.descriptionInput.current.value="";
+
+		}
   };
 
   render() {

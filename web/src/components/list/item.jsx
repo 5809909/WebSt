@@ -47,7 +47,7 @@ export class Item extends PureComponent {
             <li className={`todo ${completed && "todo--completed"}`}>
 
         <span onClick={() => completed ? onClickUncompleted(id):onClickCompleted(id)} className="todo__content">
-           <i className={`fa  ${completed ? "fa-check-square-o" : ""}`}/>
+           <i className={`fa  ${completed ? "fa-check-square-o" : "fa fa-square-o"}`}/>
             {title}
         </span>
                 <div>{description}</div>
