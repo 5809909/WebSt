@@ -1,8 +1,8 @@
 import React, {Component} from "react";
 import styles from './components/css/styles.css'
 import {Header} from "./components/header";
-import {Content} from "./components/content";
 import {Footer} from "./components/footer";
+import {ListDataContainer} from "./containers/list-data-container";
 
 
 export const TodosApp = () => {
@@ -10,7 +10,7 @@ export const TodosApp = () => {
 	return (
 		<div className="todo-app">
 			<Header title={appTitle}/>
-			<Content/>
+			<ListDataContainer/>
 			<Footer/>
 		</div>
 

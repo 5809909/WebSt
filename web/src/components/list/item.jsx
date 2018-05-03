@@ -20,12 +20,12 @@ export class Item extends PureComponent {
 
     handleAddingComment = value => {
         const {id, onAddingComment} = this.props;
-
         onAddingComment({id, value});
     };
     handleUpdatingItem = value => {
         const {id, onUpdatingItem} = this.props;
         onUpdatingItem({id, value});
+
     }
 
     render() {
@@ -48,12 +48,17 @@ export class Item extends PureComponent {
 
         <span onClick={() => completed ? onClickUncompleted(id):onClickCompleted(id)} className="todo__content">
            <i className={`fa  ${completed ? "fa-check-square-o" : "fa fa-square-o"}`}/>
-            {title}
+            Title: {title}
         </span>
-                <div>{description}</div>
+                <div>Description: {description}</div>
 
-                {comment}
+                Comment: {comment}
                 <div>
+									{this.state.isUpdating && (
+                    <Form
+                      onChangeInput={this.handleUpdatingItem}
+                    />
+									)}
                     {this.state.isCommenting && (
                         <Textarea
                             onChangeInput={this.handleAddingComment}
@@ -62,11 +67,7 @@ export class Item extends PureComponent {
                 </div>
 
 
-                {this.state.isUpdating && (
-                    <Form
-                        onChangeInput={this.handleUpdatingItem}
-                    />
-                )}
+
                 <span>
             <i
                 className={`fa fa-heart ${isLiked ? "fa-heart-active" : ""}`}
