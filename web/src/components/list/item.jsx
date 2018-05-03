@@ -21,11 +21,13 @@ export class Item extends PureComponent {
     handleAddingComment = value => {
         const {id, onAddingComment} = this.props;
         onAddingComment({id, value});
+        this.handleCommenting();
     };
+
     handleUpdatingItem = value => {
         const {id, onUpdatingItem} = this.props;
         onUpdatingItem({id, value});
-
+        this.handleUpdating();
     }
 
     render() {
@@ -45,51 +47,45 @@ export class Item extends PureComponent {
         return (
 
             <li className={`todo ${completed && "todo--completed"}`}>
-
-        <span onClick={() => completed ? onClickUncompleted(id):onClickCompleted(id)} className="todo__content">
-           <i className={`fa  ${completed ? "fa-check-square-o" : "fa fa-square-o"}`}/>
-            Title: {title}
-        </span>
-                <div>Description: {description}</div>
-
-                Comment: {comment}
-                <div>
-									{this.state.isUpdating && (
-                    <Form
-                      onChangeInput={this.handleUpdatingItem}
-                    />
-									)}
-                    {this.state.isCommenting && (
-                        <Textarea
-                            onChangeInput={this.handleAddingComment}
-                        />
-                    )}
+                <div className="complete-icon">
+                    <span clasName="" onClick={() => completed ? onClickUncompleted(id) : onClickCompleted(id)}
+                          className="todo__content">
+                        <i className={`fa  ${completed ? "fa-check-square-o" : "fa fa-square-o"}`}/>
+                        {title}
+                    </span>
+                    <div>{description}</div>
+                    <div>{comment} </div>
+                    <div className="update-item">
+                        {this.state.isUpdating && (
+                            <Form
+                                onChangeInput={this.handleUpdatingItem}
+                            />
+                        )}  </div>
+                    <div>
+                        {this.state.isCommenting && (
+                            <Textarea
+                                onChangeInput={this.handleAddingComment}
+                            />
+                        )}
+                    </div>
                 </div>
 
-
-
-                <span>
-            <i
-                className={`fa fa-heart ${isLiked ? "fa-heart-active" : ""}`}
-                onClick={() => isLiked ? onClickUnlike(id):onClickLike(id)}
-            />
-          </span>
-                <span>
-            {this.state.isCommenting ? (
-                <i className="fa fa-minus" onClick={this.handleCommenting}/>
-            ) : (
-                <i className="fa fa-plus" onClick={this.handleCommenting}/>
-            )}
-          </span>
-                <span>
-            <i className="fa fa-pencil" onClick={this.handleUpdating}/>
-          </span>
-                <span>
-            <i
-                className={"fa fa-trash"}
-                onClick={() => onRemoveItem(id)}
-            />
-          </span>
+                <div className="i-container">
+                    <i
+                        className={`fa fa-heart ${isLiked ? "fa-heart-active" : ""}`}
+                        onClick={() => isLiked ? onClickUnlike(id) : onClickLike(id)}
+                    />
+                    {this.state.isCommenting ? (
+                        <i className="fa fa-minus" onClick={this.handleCommenting}/>
+                    ) : (
+                        <i className="fa fa-plus" onClick={this.handleCommenting}/>
+                    )}
+                    <i className="fa fa-pencil" onClick={this.handleUpdating}/>
+                    <i
+                        className={"fa fa-trash"}
+                         onClick={() => onRemoveItem(id)}
+                    />
+                </div>
 
             </li>
         );

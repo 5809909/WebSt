@@ -161,7 +161,7 @@ program
 		prompt(createQuestions)
 			.then(receivedAnswers => {
 				answers = receivedAnswers;
-				return getDataFromFile();
+				return getDataFromFile();cd
 			})
 			.then(todos => {
 				const todoItem = createTodo(answers);
