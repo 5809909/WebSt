@@ -41,6 +41,7 @@ export class ListDataContainer extends Component {
     const { list } = this.state;
 
     return (
+
       <ListContainer
         list={list}
         todosListService={this.todosListService}

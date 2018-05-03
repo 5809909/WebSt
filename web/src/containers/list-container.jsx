@@ -37,7 +37,7 @@ export class ListContainer extends Component {
     render() {
         const {list} = this.props;
         return (
-            <div>
+            <div className="list-container">
                 <List
                     list={list}
                     onClickCompleted={this.handleCompleteItem}

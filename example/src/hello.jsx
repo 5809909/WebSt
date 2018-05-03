@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import styles from "./style.css";
 
-const Title = ({ title }) => <h1 class="todo-title">{title}</h1>;
+const Title = ({ title }) => <h1 className="todo-title">{title}</h1>;
 
 class AddTodo extends Component {
 	handleClick = input => {
@@ -12,10 +12,10 @@ class AddTodo extends Component {
 
 	render() {
 		return (
-			<div class="add-todo">
-				<input class="add-todo__input_title" onChange={this.handleClick} />
-				<button class="add-todo__btn">
-					<i class="fa fa-plus" />
+			<div className="add-todo">
+				<input className="add-todo__input_title" onChange={this.handleClick} />
+				<button className="add-todo__btn">
+					<i className="fa fa-plus" />
 				</button>
 			</div>
 		);
@@ -23,15 +23,15 @@ class AddTodo extends Component {
 
 }
 const Filters = () => (
-	<div class="filters">
-		<a class="filter__link" href="#">
-			<i class="fa fa-list-ul" />
+	<div className="filters">
+		<a className="filter__link" href="#">
+			<i className="fa fa-list-ul" />
 		</a>
-		<a class="filter__link" href="#">
-			<i class="fa fa-times" />
+		<a className="filter__link" href="#">
+			<i className="fa fa-times" />
 		</a>
-		<a class="filter__link" href="#">
-			<i class="fa fa-check" />
+		<a className="filter__link" href="#">
+			<i className="fa fa-check" />
 		</a>
 	</div>
 );
@@ -40,8 +40,8 @@ class TodoItem extends Component {
 	render() {
 		const { content } = this.props;
 		return (
-			<li class="todo">
-				<span class="todo__content">{content}</span>
+			<li className="todo">
+				<span className="todo__content">{content}</span>
 			</li>
 		);
 	}
@@ -49,7 +49,7 @@ class TodoItem extends Component {
 
 const List = ({ list }) => {
 	return (
-		<ul class="todo-list">
+		<ul className="todo-list">
 			{list.map((item, index) => <TodoItem key={item} content={item} />)}
 		</ul>
 	);
@@ -80,7 +80,7 @@ class TodoListContainer extends Component {
 export default ({ name }) => {
 	const appTitle = "Todos";
 	return (
-		<div class="todo-app">
+		<div className="todo-app">
 			<Title title={appTitle} />
 			<TodoListContainer />
 		</div>

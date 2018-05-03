@@ -8,14 +8,14 @@ export class Form extends Component {
   }
 
   handleClick = () => {
+
     const title = this.titleInput.current.value;
     const description = this.descriptionInput.current.value;
-
+		console.log("handleClick",title);
 		if (title) {
 			this.props.onChangeInput({title, description});
 			this.titleInput.current.value="";
 			this.descriptionInput.current.value="";
-
 		}
   };
 
