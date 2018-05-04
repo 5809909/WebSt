@@ -29,7 +29,7 @@ export default class TodosListService {
 				const result = [...todos, todo];
 				return this.todosListDAO.saveAllTodos(result);
 			})
-			.then(() => console.log(todoId));
+			.then(() => todoId);
 	}
 
 	/**
@@ -46,7 +46,7 @@ export default class TodosListService {
 				result.splice(index, 1, this.todoService.updateTodo(change, target));
 				return this.todosListDAO.saveAllTodos(result);
 			})
-			.then(() => console.log(todoId));
+			.then(() => todoId);
 	}
 
 	/**
@@ -97,6 +97,6 @@ export default class TodosListService {
 				const removed = result.splice(index, 1)
 				return this.todosListDAO.saveAllTodos(result);
 			})
-			.then(() => console.log(todoId));
+			.then(() => todoId);
 	}
 }
