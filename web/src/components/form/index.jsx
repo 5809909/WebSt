@@ -1,4 +1,4 @@
 import { Form } from './form'
-import { Textarea } from './textarea'
+import { Input } from './input'
 
-export {Form, Textarea}
+export {Form, Input}

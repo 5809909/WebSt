@@ -6,10 +6,10 @@ import {ListDataContainer} from "./containers/list-data-container";
 
 
 export const TodosApp = () => {
-	const appTitle = "Todos";
+
 	return (
-		<div className="todo-app">
-			<Header title={appTitle}/>
+		<div >
+			<Header />
 			<ListDataContainer/>
 			<Footer/>
 		</div>

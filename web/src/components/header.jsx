@@ -1,3 +1,4 @@
 import React from "react";
+import {APP_TITLE} from "../constants";
 
-export const Header = ({ title }) => <h1 className="header">{title}</h1>;
+export const Header = () => <h1 className="header">{APP_TITLE}</h1>;

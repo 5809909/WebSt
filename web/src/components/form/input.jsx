@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 
-export class Textarea extends Component {
+export class Input extends Component {
 	constructor(props) {
 		super(props);
 		this.input = React.createRef();
@@ -18,16 +18,16 @@ export class Textarea extends Component {
 
 	render() {
 		return (
-			<span>
-      <textarea
+			<div className="addComment">
+      <input
 				className="add-todo__input"
 				placeholder="Enter comment here"
 				ref={this.input}
 			/>
 			<button className="add-todo__btn" onClick={this.handleClick}>
-	<i className="fa fa-plus"/>
+	<span className="i-container"><i className="fa fa-floppy-o "/></span>
 			</button>
-      </span>
+      </div>
 		);
 	}
 }

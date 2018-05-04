@@ -4,7 +4,11 @@ export default class TodosListService {
 		this.todoService = todoService;
 	}
 
-	// eslint-disable-next-line no-unused-vars
+	/**
+	 * @param {Object} todos
+	 * @param {string} todoId
+	 * @return {Object} todo
+	 */
 	findTodoIndex(todoId, todos) {
 		return todos.findIndex(todo => todo.id === todoId)
 	}
@@ -31,6 +35,7 @@ export default class TodosListService {
 	/**
 	 * @param {string} todoId
 	 * @param {TodoChange} change
+	 * @return {Promise<string>}
 	 */
 	updateTodoItem(todoId, change) {
 		return this.todosListDAO.getAllTodos()
@@ -92,6 +97,6 @@ export default class TodosListService {
 				const removed = result.splice(index, 1)
 				return this.todosListDAO.saveAllTodos(result);
 			})
-			.then(() => todoId);
+			.then(() => console.log(todoId));
 	}
 }
