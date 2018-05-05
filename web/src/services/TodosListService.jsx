@@ -10,7 +10,6 @@ export default class TodosListService {
 	 * @return {Object} todo
 	 */
 	findTodoIndex(todoId, todos) {
-        console.log(todos,todoId);
 		return todos.findIndex(todo => todo.id === todoId) ;
 
 	}
@@ -42,7 +41,6 @@ export default class TodosListService {
 	updateTodoItem(todoId, change) {
 		return this.todosListDAO.getAllTodos()
 			.then((todos) => {
-		//	console.log('todoId',todoId);
 				const index = this.findTodoIndex(todoId, todos);
 				const target = todos[index];
 				const result = [...todos];
@@ -56,35 +54,35 @@ export default class TodosListService {
 	 * @param {string} todoId
 	 * @param {string} commentText
 	 */
-	addItemComment(todoId, commentText) {
+	addTodoItemComment(todoId, commentText) {
 		this.updateTodoItem(todoId, {comment: commentText});
 	}
 
 	/**
 	 * @param {string} todoId
 	 */
-	likeItem(todoId) {
+	likeTodoItem(todoId) {
 		this.updateTodoItem(todoId, {isLiked: true});
 	}
 
 	/**
 	 * @param {string} todoId
 	 */
-	unlikeItem(todoId) {
+	unlikeTodoItem(todoId) {
 		this.updateTodoItem(todoId, {isLiked: false});
 	}
 
 	/**
 	 * @param {string} todoId
 	 */
-	completeItem(todoId) {
+	completeTodoItem(todoId) {
 		this.updateTodoItem(todoId, {completed: true});
 	}
 
 	/**
 	 * @param {string} todoId
 	 */
-	uncompleteItem(todoId) {
+	uncompleteTodoItem(todoId) {
 		this.updateTodoItem(todoId, {completed: false});
 	}
 
@@ -92,7 +90,7 @@ export default class TodosListService {
 	 * @param {string} todoId
 	 * @return {Promise<string>}
 	 */
-	removeItem(todoId) {
+	removeTodoItem(todoId) {
 		return this.todosListDAO.getAllTodos()
 			.then((todos) => {
 				const index = this.findTodoIndex(todoId, todos);

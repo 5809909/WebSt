@@ -5,30 +5,30 @@ import {List} from "../components/list";
 export class ListContainer extends Component {
 
     handleLikeItem = id => {
-        this.props.todosListService.likeItem(id);
+        this.props.todosListService.likeTodoItem(id);
 			console.log("is liked");
 
 		};
 
     handleUnlikeItem = id => {
-        this.props.todosListService.unlikeItem(id);
+        this.props.todosListService.unlikeTodoItem(id);
 		console.log("is unliked");
     };
 
     handleCompleteItem = id => {
-        this.props.todosListService.completeItem(id);
+        this.props.todosListService.completeTodoItem(id);
     };
     handleUncompleteItem = id => {
-        this.props.todosListService.uncompleteItem(id);
+        this.props.todosListService.uncompleteTodoItem(id);
     };
 
     handleDeleteItem = id => {
-        this.props.todosListService.removeItem(id)
+        this.props.todosListService.removeTodoItem(id)
 					.then((todosId) => console.log(todosId));
     };
 
     handleAddingComment = ({id, value}) => {
-        this.props.todosListService.addItemComment(id, value);
+        this.props.todosListService.addTodoItemComment(id, value);
 			console.log(value);
 
 		};
