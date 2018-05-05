@@ -10,7 +10,9 @@ export default class TodosListService {
 	 * @return {Object} todo
 	 */
 	findTodoIndex(todoId, todos) {
-		return todos.findIndex(todo => todo.id === todoId)
+        console.log(todos,todoId);
+		return todos.findIndex(todo => todo.id === todoId) ;
+
 	}
 
 	/**
@@ -40,6 +42,7 @@ export default class TodosListService {
 	updateTodoItem(todoId, change) {
 		return this.todosListDAO.getAllTodos()
 			.then((todos) => {
+		//	console.log('todoId',todoId);
 				const index = this.findTodoIndex(todoId, todos);
 				const target = todos[index];
 				const result = [...todos];

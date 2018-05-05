@@ -70,6 +70,7 @@ describe('TodoService', () => {
         createdDate: now,
         createdByUserId: ACCOUNT_ID,
         isLiked: false,
+          completed: false,
         lastUpdateDate: now,
         lastUpdateByUserId: ACCOUNT_ID,
       };
@@ -87,5 +88,13 @@ describe('TodoService', () => {
     it('"lastUpdateDate" should be updated automatically', () => {
       expect(updatedTodo.lastUpdateDate).not.toBe(targetTodo.lastUpdateDate);
     });
+
+      it('"all other properties should be the same', () => {
+          expect(updatedTodo.id).toBe(targetTodo.id);
+          expect(updatedTodo.comment).toBe(targetTodo.comment);
+          expect(updatedTodo.createdByUserId).toBe(targetTodo.createdByUserId);
+          expect(updatedTodo.isLiked).toBe(targetTodo.isLiked);
+          expect(updatedTodo.completed).toBe(targetTodo.completed);
+      });
   });
 });
