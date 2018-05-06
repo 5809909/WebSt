@@ -24,8 +24,8 @@ export class Input extends Component {
 				placeholder="Enter comment here"
 				ref={this.input}
 			/>
-			<button className="add-todo__btn" onClick={this.handleClick}>
-	<span className="i-container"><i className="fa fa-floppy-o "/></span>
+			<button onClick={this.handleClick}>
+	<span className="add-todo__btn"><i className="fa fa-floppy-o "/></span>
 			</button>
       </div>
 		);

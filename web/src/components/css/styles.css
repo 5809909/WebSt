@@ -52,6 +52,7 @@ html, body {
 .todo {
 	display: flex;
 	justify-content: space-between;
+	font-size: 1em;
 }
 
 .update-item .add-todo {
@@ -60,29 +61,12 @@ html, body {
 }
 
 .addComment {
-	margin: 1em;
-}
-
-.description {
-	max-width: 20em;
-	text-align: left;
-}
-
-.i-container {
-	position: relative;
-	font-size: 2em;
-	min-width: 4em;
-	padding-top: 0.5em;
-}
-
-i {
-	padding: 0.05em;
+	margin: 0.5em 1em;
 }
 
 .list-container .todo-list {
 	overflow-y: auto;
 	overflow-x: hidden;
-
 	list-style: none;
 	margin-bottom: 20px;
 	flex: 1;
@@ -115,8 +99,8 @@ i {
 
 .list-container .add-todo__btn {
 	text-align: center;
-	margin-top: 0.5em;
-
+	font-size: 2em;
+	margin: 0.1em;
 }
 
 
@@ -127,7 +111,6 @@ i {
 .list-container input {
 	border: 1px;
 	background: #e2ef71;
-	font-size: 0.8em;
 	padding: 0.8em;
 	margin-bottom: 0.9em;
 	width: 90%;
@@ -147,7 +130,7 @@ i {
 	border-radius: 5px;
 	width: 3em;
 	height: 3em;
-align-self: center;
+	align-self: center;
 	transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 	cursor: pointer;
 	text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.75);
@@ -157,27 +140,37 @@ align-self: center;
 	color: #e74c3c;
 }
 
-.todo .todo--completed .todo__content {
-	opacity: 0.5;
-}
-
-.todo__content {
+.todo__icon {
 	font-size: 2em;
 	margin: 0.1em;
+	position: relative;
+	max-width: 1.1em;
 }
+
 .textForm{
-	max-width: 30em;
+	max-width: 35em;
+	margin: 0 0.5em;
 }
-.textSimple {
-	font-size: 1em;
+
+.textTitle {
+	margin: 0.25em 0;
+	font-size: 1.2em;
 }
+
 .textDescription{
 	font-style:italic ;
+	margin: 0.5em 0;
+}
+.textComment{
+	margin: 0.5em 0;
+	padding: 0.5em 0;
+	border-top: 1px solid #333333;
 }
 .textSolid{
 	text-decoration: solid ;
 }
+
 .addComment .add-todo__input {
 	width: 25em;
-	margin: 1em;
+	margin: 0 1em;
 }

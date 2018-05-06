@@ -1,4 +1,5 @@
 export default class TodosListService {
+
 	constructor(todosListDAO, todoService) {
 		this.todosListDAO = todosListDAO;
 		this.todoService = todoService;
@@ -11,7 +12,6 @@ export default class TodosListService {
 	 */
 	findTodoIndex(todoId, todos) {
 		return todos.findIndex(todo => todo.id === todoId) ;
-
 	}
 
 	/**
@@ -56,6 +56,7 @@ export default class TodosListService {
 	 */
 	addTodoItemComment(todoId, commentText) {
 		this.updateTodoItem(todoId, {comment: commentText});
+        console.log(commentText);
 	}
 
 	/**
@@ -63,6 +64,7 @@ export default class TodosListService {
 	 */
 	likeTodoItem(todoId) {
 		this.updateTodoItem(todoId, {isLiked: true});
+        console.log("is liked");
 	}
 
 	/**
@@ -70,6 +72,7 @@ export default class TodosListService {
 	 */
 	unlikeTodoItem(todoId) {
 		this.updateTodoItem(todoId, {isLiked: false});
+        console.log("is unliked");
 	}
 
 	/**
@@ -95,7 +98,7 @@ export default class TodosListService {
 			.then((todos) => {
 				const index = this.findTodoIndex(todoId, todos);
 				const result = [...todos];
-				const removed = result.splice(index, 1)
+				const removed = result.splice(index, 1) ;
 				return this.todosListDAO.saveAllTodos(result);
 			})
 			.then(() => todoId);

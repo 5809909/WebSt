@@ -6,13 +6,10 @@ export class ListContainer extends Component {
 
     handleLikeItem = id => {
         this.props.todosListService.likeTodoItem(id);
-			console.log("is liked");
-
 		};
 
     handleUnlikeItem = id => {
         this.props.todosListService.unlikeTodoItem(id);
-		console.log("is unliked");
     };
 
     handleCompleteItem = id => {
@@ -24,13 +21,11 @@ export class ListContainer extends Component {
 
     handleDeleteItem = id => {
         this.props.todosListService.removeTodoItem(id)
-					.then((todosId) => console.log(todosId));
+            .then((todosId) => console.log(todosId));
     };
 
     handleAddingComment = ({id, value}) => {
         this.props.todosListService.addTodoItemComment(id, value);
-			console.log(value);
-
 		};
 
     handleUpdatingItem = value => {

@@ -27,8 +27,8 @@ export class Form extends Component {
         <input  className="add-todo__input" placeholder="Enter ToDo title" ref={this.titleInput} />
 				<span className="text">Description:</span>
         <input className="add-todo__input" placeholder="Enter ToDo description" ref={this.descriptionInput} />
-        <button  className="add-todo__btn" onClick={this.handleClick}>
-					<span className="i-container"><i className="fa fa-floppy-o" /></span>
+        <button  onClick={this.handleClick}>
+					<span className="add-todo__btn"><i className="fa fa-floppy-o" /></span>
         </button>
       </div>
     );

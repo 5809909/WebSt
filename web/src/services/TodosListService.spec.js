@@ -65,7 +65,6 @@ describe('TodosListService', () => {
     describe('when updating todo', () => {
         let resultId;
         let change;
-        let result;
         let todos;
         let number;
 
@@ -88,19 +87,14 @@ describe('TodosListService', () => {
                     "description": ""
                 }];
 
-            result = {
-                "id": todos[number].id,
-                "title": "Test Change",
-                "description": "Test Description Change"
-            };
-
             change = {
                 title: 'Test Change',
                 description: 'Test Description Change'
             };
 
             sinon.stub(todosListDAO, 'getAllTodos').returns(Promise.resolve(todos));
-            sinon.stub(todoService, 'updateTodo').returns(result);
+            sinon.spy(todosListService, 'findTodoIndex');
+            sinon.spy(todoService, 'updateTodo');
             sinon.spy(todosListDAO, 'saveAllTodos');
             return todosListService.updateTodoItem(todos[number].id, change).then((r) => {
                 resultId = r;
@@ -108,37 +102,47 @@ describe('TodosListService', () => {
         });
 
         afterEach(() => {
+            todosListService.findTodoIndex.restore();
             todoService.updateTodo.restore();
             todosListDAO.saveAllTodos.restore();
             todosListDAO.getAllTodos.restore();
         });
 
-        it('should return id of updated todo', () => {
+        it('+should return id of updated todo', () => {
             expect(resultId).toBe(todos[number].id);
         });
 
-        it('todosListDAO should load todos', () => {
+        it('+todosListDAO should load todos', () => {
             expect(todosListDAO.getAllTodos.calledOnce).toBe(true);
         });
 
-        it('updateTodo should be called for updating todo', () => {
+        it('+findTodoIndex should called once', () => {
+            expect(todosListService.findTodoIndex.calledOnce).toBeTruthy();
+        });
+
+        it('+updateTodo should be called for updating todo', () => {
             expect(todoService.updateTodo.calledOnce).toBe(true);
         });
 
-        it('todosListDAO should save updated todos', () => {
+        it('+todosListDAO should save updated todos', () => {
             expect(todosListDAO.saveAllTodos.calledOnce).toBeTruthy();
         });
 
-        it('updateTodo should be called with appropriate params', () => {
-            expect(todoService.updateTodo.getCall(0).args[0]).toBe(change);
-            expect(todoService.updateTodo.getCall(0).args[1]).toBe(todos[number]);
+        it('+findTodoIndex returns index of target todo', () => {
+            expect(todosListService.findTodoIndex.getCall(0).args[0]).toBe(todos[number].id);
+            expect(todosListService.findTodoIndex.returnValues[0]).toBe(number);
         });
 
-        it('updateTodo should save appropriate params', () => {
+        it('+updateTodo should be called with appropriate params', () => {
+            expect(todoService.updateTodo.getCall(0).args[0]).toBe(change);
+            expect(todoService.updateTodo.getCall(0).args[1]).toBe(todos[number]);
+            expect(todoService.updateTodo.returnValues[0]).toEqual(expect.objectContaining(change));
+        });
+
+        it('+updateTodo should save appropriate params', () => {
             console.log(todosListDAO.saveAllTodos.getCall(0).args[0]);
             expect(todosListDAO.saveAllTodos.getCall(0).args[0][number]).toEqual(expect.objectContaining(change));
         });
-
     });
 
     describe('when removing todo', () => {
@@ -172,6 +176,8 @@ describe('TodosListService', () => {
 
             sinon.stub(todosListDAO, 'getAllTodos').returns(Promise.resolve(todos));
             sinon.spy(todosListDAO, 'saveAllTodos');
+            sinon.spy(todosListService, 'findTodoIndex');
+
             return todosListService.removeTodoItem(removedTodo.id).then((r) => {
                 resultId = r;
             });
@@ -180,56 +186,136 @@ describe('TodosListService', () => {
         afterEach(() => {
             todosListDAO.saveAllTodos.restore();
             todosListDAO.getAllTodos.restore();
+            todosListService.findTodoIndex.restore();
         });
 
         it('should return id of removed todo', () => {
             expect(resultId).toBe(removedTodo.id);
         });
 
-        it('todosListDAO should load todos', () => {
+        it('+todosListDAO should load todos', () => {
             expect(todosListDAO.getAllTodos.calledOnce).toBe(true);
         });
 
-        it('todosListDAO should save updated todos', () => {
+        it('+todosListDAO should save updated todos', () => {
             expect(todosListDAO.saveAllTodos.calledOnce).toBeTruthy();
         });
 
-        it('todosListDAO should save appropriate params', () => {
+        it('+findTodoIndex returns index of target todo', () => {
+            expect(todosListService.findTodoIndex.getCall(0).args[0]).toBe('1234567890');
+            expect(todosListService.findTodoIndex.returnValues[0]).toBe(1);
+        });
+
+        it('+todosListDAO should save appropriate params', () => {
             console.log(todosListDAO.saveAllTodos.getCall(0).args[0]);
             expect(todosListDAO.saveAllTodos.getCall(0).args[0][0]).not.toEqual(expect.objectContaining(removedTodo));
         });
-
     });
 
-         describe('when add Comment to TodoItem',()=>{
-                let todoItemId='todoId';
-                let comment='Comment';
+    describe('when add Comment to TodoItem', () => {
+        let todoItemId = 'todoId';
+        let comment = 'Comment';
 
-             beforeEach(() => {
-                sinon.spy(todosListService, 'updateTodoItem');
-                todosListService.addTodoItemComment(todoItemId,comment)
-             });
+        beforeEach(() => {
+            sinon.spy(todosListService, 'updateTodoItem');
+            todosListService.addTodoItemComment(todoItemId, comment)
+        });
 
-             afterEach(()=>{
-                 todosListService.updateTodoItem.restore();
-             });
+        afterEach(() => {
+            todosListService.updateTodoItem.restore();
+        });
 
-             it('should be called once', () => {
-                 expect(todosListService.updateTodoItem.calledOnce).toBe(true);
-             });
+        it('should be called once', () => {
+            expect(todosListService.updateTodoItem.calledOnce).toBe(true);
+        });
 
-             it('should call updateTodoItem with correct parameters', () => {
-                 expect(todosListService.updateTodoItem.calledWith(todoItemId,{comment: comment})).toBe(true);
-             });
+        it('should call updateTodoItem with correct parameters', () => {
+            expect(todosListService.updateTodoItem.calledWith(todoItemId, {comment: comment})).toBe(true);
+        });
+    });
 
-             it('should call updateTodoItem with correct parameters', () => {
-                   console.log(todosListService.updateTodoItem.returnValues)  ;
+    describe('when like TodoItem', () => {
+        let todoItemId = 'todoId';
 
-             });
-         });
+        beforeEach(() => {
+            sinon.spy(todosListService, 'updateTodoItem');
+            todosListService.likeTodoItem(todoItemId)
+        });
 
+        afterEach(() => {
+            todosListService.updateTodoItem.restore();
+        });
 
+        it('should be called once', () => {
+            expect(todosListService.updateTodoItem.calledOnce).toBe(true);
+        });
 
+        it('should call updateTodoItem with correct parameters', () => {
+            expect(todosListService.updateTodoItem.calledWith(todoItemId, {isLiked: true})).toBe(true);
+        });
+    });
 
+    describe('when unlike TodoItem', () => {
+        let todoItemId = 'todoId';
+
+        beforeEach(() => {
+            sinon.spy(todosListService, 'updateTodoItem');
+            todosListService.unlikeTodoItem(todoItemId)
+        });
+
+        afterEach(() => {
+            todosListService.updateTodoItem.restore();
+        });
+
+        it('should be called once', () => {
+            expect(todosListService.updateTodoItem.calledOnce).toBe(true);
+        });
+
+        it('should call updateTodoItem with correct parameters', () => {
+            expect(todosListService.updateTodoItem.calledWith(todoItemId, {isLiked: false})).toBe(true);
+        });
+    });
+
+    describe('when complete TodoItem', () => {
+        let todoItemId = 'todoId';
+
+        beforeEach(() => {
+            sinon.spy(todosListService, 'updateTodoItem');
+            todosListService.completeTodoItem(todoItemId)
+        });
+
+        afterEach(() => {
+            todosListService.updateTodoItem.restore();
+        });
+
+        it('should be called once', () => {
+            expect(todosListService.updateTodoItem.calledOnce).toBe(true);
+        });
+
+        it('should call updateTodoItem with correct parameters', () => {
+            expect(todosListService.updateTodoItem.calledWith(todoItemId, {completed: true})).toBe(true);
+        });
+    });
+
+    describe('when uncomplete TodoItem', () => {
+        let todoItemId = 'todoId';
+
+        beforeEach(() => {
+            sinon.spy(todosListService, 'updateTodoItem');
+            todosListService.uncompleteTodoItem(todoItemId)
+        });
+
+        afterEach(() => {
+            todosListService.updateTodoItem.restore();
+        });
+
+        it('should be called once', () => {
+            expect(todosListService.updateTodoItem.calledOnce).toBe(true);
+        });
+
+        it('should call updateTodoItem with correct parameters', () => {
+            expect(todosListService.updateTodoItem.calledWith(todoItemId, {completed: false})).toBe(true);
+        });
+    });
 });
 
