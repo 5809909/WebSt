@@ -56,7 +56,7 @@ export class Item extends PureComponent {
 
                     <span className="todo__icon">
                     <i
-                        className={`fa fa-heart ${isLiked ? "fa-heart-active" : ""}`}
+                        className={`fa fa-heart opacity ${isLiked ? "fa-heart-active" : ""}`}
                         onClick={() => isLiked ? onClickUnlike(id) : onClickLike(id)}
                     />                                 </span>
 
