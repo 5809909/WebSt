@@ -45,26 +45,26 @@ export class Item extends PureComponent {
             onRemoveItem
         } = this.props;
         return (
-
             <li className="todo" >
 
-                <div className="textForm">
+                <div className="todo-text-block">
                     <span onClick={() => completed ? onClickUncompleted(id) : onClickCompleted(id)}
-                          className="todo__icon">
+                          className="todo-text-block__icon">
                         <i className={`fa  ${completed ? "fa-check-square-o" : "fa fa-square-o"}`}/>
                     </span>
 
-                    <span className="todo__icon">
-                    <i
-                        className={`fa fa-heart opacity ${isLiked ? "fa-heart-active" : ""}`}
+                    <span className="todo-text-block__icon">
+                        <i
+                        className={`fa fa-heart semitransparent ${isLiked ? "fa-heart-active" : ""}`}
                         onClick={() => isLiked ? onClickUnlike(id) : onClickLike(id)}
-                    />                                 </span>
+                        />
+                    </span>
 
-                    <span className="textTitle">{title}</span>
+                    <span className="todo-text-block__text-title">{title}</span>
                     <div >
 
-                        <div className="textDescription">{description}</div>
-                        <div className="textComment">{comment}</div>
+                        <div className="todo-text-block__text-description">{description}</div>
+                        <div className="todo-text-block__text-comment">{comment}</div>
                     </div>
                     <div className="update-item">
                         {this.state.isUpdating && (
@@ -81,7 +81,7 @@ export class Item extends PureComponent {
                     </div>
                 </div>
 
-                <div className="todo__icon">
+                <div className="todo-btn-block">
                     <i className="fa fa-pencil" onClick={this.handleUpdating}/>
                     <i
                         className={"fa fa-trash"}

@@ -31,7 +31,6 @@ export const List = ({
 };
 
 List.propTypes = {
-    // eslint-disable-next-line react/forbid-prop-types
     list: PropTypes.array,
     onClickCompleted: PropTypes.func,
     onClickUncompleted: PropTypes.func,
