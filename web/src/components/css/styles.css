@@ -1,7 +1,7 @@
 
 html, body {
 	display: flex;
-	background: #62acff;
+	background: #a3dbff;
 	color: #131313;
 	justify-content: center;
 
@@ -74,7 +74,7 @@ html, body {
 }
 
 .list-container .todo-list .todo {
-	background: #c6eeff;
+	background: #efefef;
 	padding: 10px;
 	border-radius: 15px;
 	margin: 10px 0;
@@ -109,7 +109,7 @@ html, body {
 
 .list-container input {
 	border: 1px;
-	background: #a9d3ff;
+	background: #c0e7ff;
 	padding: 0.8em;
 	margin-bottom: 0.9em;
 	width: 90%;
