@@ -1,21 +1,19 @@
 import express from 'express';
-import { MongoClient } from 'mongodb'
-const url = 'mongodb://localhost:32768/';
+
+import { createRouter } from './server/todos';
+
 const app = express();
 
+app.listen(8080, () => {
+    app.use(express.urlencoded());
+    app.use(express.json());
 
-MongoClient.connect(url, function (err) {
+    app.use('/todos', createRouter());
 
-    if (err) throw err;
+    app.use((err, req, res, next) => {
+        console.error(err);
+        res.status(500).json({ message:  `Something went wrong` });
+    });
 
-    console.log('Successfully connected');
-
-});
-
-app.get('/', (req, res) => {
-    res.send('Hello world!')
-});
-
-const server = app.listen(8080, () => {
-    console.log("Server is up and running on port 8080");
+    console.info('Server listening on port 8080');
 });
