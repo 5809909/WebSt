@@ -12,7 +12,8 @@ export default class TodosListMongoDAO extends TodosListDAO {
     const { connection, collection } = await this.connect();
 
     try {
-      return collection.insertOne(todoItem);
+      collection.insertOne(todoItem);
+        return todoItem.id;
     } finally {
       connection.close();
     }
@@ -37,6 +38,7 @@ export default class TodosListMongoDAO extends TodosListDAO {
 
     try {
       return collection.findOne({ id });
+
     } finally {
       connection.close();
     }
@@ -74,4 +76,5 @@ export default class TodosListMongoDAO extends TodosListDAO {
       connection,
     };
   }
+
 }

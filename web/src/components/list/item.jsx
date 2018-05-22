@@ -61,11 +61,11 @@ export class Item extends PureComponent {
                     </span>
 
                     <span className="todo-text-block__text-title">{title}</span>
-                    <div >
+
 
                         <div className="todo-text-block__text-description">{description}</div>
                         <div className="todo-text-block__text-comment">{comment}</div>
-                    </div>
+
                     <div className="update-item">
                         {this.state.isUpdating && (
                             <Form

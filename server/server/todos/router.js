@@ -11,8 +11,6 @@ import TodoNotFoundError from './TodoNotFoundError';
 export default function createRouter() {
   const router = express.Router({});
 
-  let counter = 0;
-
   /**
    * @type {TodosListDAO}
    */
@@ -35,7 +33,7 @@ export default function createRouter() {
         title, description
       })
       .then((id) => {
-        res.json( id );
+        res.send( id);
       });
   });
 
@@ -52,15 +50,14 @@ export default function createRouter() {
 
     todosListService
       .updateTodoItem(id, req.body)
-      .then(() => {
-        res.json({ id });
+      .then((res) => {
+        res.send(res);
       });
   });
 
   router.patch('/:id/completed', (req, res) => {
     const { id } = req.params;
     const { completed } = req.body;
-		console.log("completed:"+completed)   ;
 
     todosListService
       .toggleItemCompleted(id, completed)
@@ -81,7 +78,7 @@ export default function createRouter() {
   router.patch('/:id/comment', (req, res) => {
     const { id } = req.params;
     const { comment } = req.body;
-		console.log("comment:"+comment)   ;
+
 
     todosListService
       .addItemComment(id, comment)

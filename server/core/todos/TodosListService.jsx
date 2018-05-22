@@ -1,3 +1,5 @@
+import TodoNotFoundError from "../../server/todos/TodoNotFoundError";
+
 export default class TodosListService {
     /**
      * @type {TodosListDAO}
@@ -33,11 +35,21 @@ export default class TodosListService {
      * @return {Promise<TodoItem>}
      */
     async updateTodoItem(todoId, change) {
-        const todo = await this.todosListDAO.getById(todoId);
-        const updatedTodo = this.todoService.updateTodo(change, todo);
-        return this.todosListDAO.update(updatedTodo);
-    }
+        try {
+            const todo = await this.todosListDAO.getById(todoId);
+            console.log(todo);
 
+            if (todo) {
+                const updatedTodo = this.todoService.updateTodo(change, todo);
+                return this.todosListDAO.update(updatedTodo);
+            } else{
+                console.log("todoId "+todoId);
+                return TodoNotFoundError(todoId);
+            }
+        } catch (err){
+            console.log("11111"+err);
+        }
+    }
     /**
      * @param {string} todoId
      * @returns {Promise<number>}
@@ -52,7 +64,7 @@ export default class TodosListService {
      * @return {Promise<TodoItem>}
      */
     addItemComment(todoId, commentText) {
-        return this.updateTodoItem(todoId, { comment: commentText });
+        return this.updateTodoItem(todoId, {comment: commentText});
     }
 
     /**
@@ -61,7 +73,7 @@ export default class TodosListService {
      * @return {Promise<TodoItem>}
      */
     toggleItemLike(todoId, isLiked) {
-        return this.updateTodoItem(todoId, { isLiked });
+        return this.updateTodoItem(todoId, {isLiked});
     }
 
     /**
@@ -70,6 +82,6 @@ export default class TodosListService {
      * @return {Promise<TodoItem>}
      */
     toggleItemCompleted(todoId, completed) {
-        return this.updateTodoItem(todoId, { completed });
+        return this.updateTodoItem(todoId, {completed});
     }
 }
