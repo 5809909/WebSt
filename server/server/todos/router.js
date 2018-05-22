@@ -60,6 +60,7 @@ export default function createRouter() {
   router.patch('/:id/completed', (req, res) => {
     const { id } = req.params;
     const { completed } = req.body;
+		console.log("completed:"+completed)   ;
 
     todosListService
       .toggleItemCompleted(id, completed)
@@ -71,7 +72,7 @@ export default function createRouter() {
   router.patch('/:id/like', (req, res) => {
     const { id } = req.params;
     const { isLiked } = req.body;
-      console.log(isLiked)   ;
+
     todosListService
       .toggleItemLike(id, isLiked)
       .then((result) => res.send(result));
@@ -80,6 +81,7 @@ export default function createRouter() {
   router.patch('/:id/comment', (req, res) => {
     const { id } = req.params;
     const { comment } = req.body;
+		console.log("comment:"+comment)   ;
 
     todosListService
       .addItemComment(id, comment)

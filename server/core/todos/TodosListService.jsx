@@ -66,10 +66,10 @@ export default class TodosListService {
 
     /**
      * @param {string} todoId
-     * @param {boolean} isCompleted
+     * @param {boolean} completed
      * @return {Promise<TodoItem>}
      */
-    toggleItemCompleted(todoId, isCompleted) {
-        return this.updateTodoItem(todoId, { isCompleted });
+    toggleItemCompleted(todoId, completed) {
+        return this.updateTodoItem(todoId, { completed });
     }
 }
