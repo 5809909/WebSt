@@ -13,20 +13,22 @@ export default class TodosListMongoDAO extends TodosListDAO {
 
     try {
       collection.insertOne(todoItem);
-        return todoItem.id;
+
     } finally {
       connection.close();
     }
+		return todoItem.id;
   }
 
   async update(todoItem) {
     const { connection, collection } = await this.connect();
 
     try {
-      return collection.replaceOne({ id: todoItem.id }, todoItem);
+       collection.replaceOne({ id: todoItem.id }, todoItem);
     } finally {
       connection.close();
     }
+		return todoItem.id;
   }
 
   remove(todoItem) {
@@ -38,7 +40,6 @@ export default class TodosListMongoDAO extends TodosListDAO {
 
     try {
       return collection.findOne({ id });
-
     } finally {
       connection.close();
     }
@@ -70,11 +71,10 @@ export default class TodosListMongoDAO extends TodosListDAO {
   }
 
   async connect() {
-    const connection = await this.mongoClient.connect(this.mongoURI);
+    const connection = await this.mongoClient.connect(this.mongoURI, { useNewUrlParser: true });
     return {
       collection: connection.db('todos').collection('todos'),
       connection,
     };
   }
-
 }

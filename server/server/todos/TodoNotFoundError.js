@@ -1,6 +1,5 @@
 function TodoNotFoundError(todoId) {
   Error.call(this);
-    console.log("222todoId "+todoId);
 
   this.name = 'TodoNotFoundError';
   this.message = `Todo with id "${todoId}" not found`;

@@ -37,19 +37,19 @@ export default class TodosListService {
     async updateTodoItem(todoId, change) {
         try {
             const todo = await this.todosListDAO.getById(todoId);
-            console.log(todo);
 
             if (todo) {
                 const updatedTodo = this.todoService.updateTodo(change, todo);
                 return this.todosListDAO.update(updatedTodo);
             } else{
-                console.log("todoId "+todoId);
-                return TodoNotFoundError(todoId);
+              return new TodoNotFoundError(todoId).message;
+
             }
         } catch (err){
-            console.log("11111"+err);
+            console.log("error in TodoListService:"+err);
         }
     }
+
     /**
      * @param {string} todoId
      * @returns {Promise<number>}
@@ -64,7 +64,7 @@ export default class TodosListService {
      * @return {Promise<TodoItem>}
      */
     addItemComment(todoId, commentText) {
-        return this.updateTodoItem(todoId, {comment: commentText});
+        return this.updateTodoItem(todoId, { comment: commentText });
     }
 
     /**
@@ -73,7 +73,7 @@ export default class TodosListService {
      * @return {Promise<TodoItem>}
      */
     toggleItemLike(todoId, isLiked) {
-        return this.updateTodoItem(todoId, {isLiked});
+        return this.updateTodoItem(todoId, { isLiked });
     }
 
     /**
@@ -82,6 +82,6 @@ export default class TodosListService {
      * @return {Promise<TodoItem>}
      */
     toggleItemCompleted(todoId, completed) {
-        return this.updateTodoItem(todoId, {completed});
+        return this.updateTodoItem(todoId, { completed });
     }
 }

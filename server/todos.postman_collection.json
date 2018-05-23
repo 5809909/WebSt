@@ -6,38 +6,6 @@
 	},
 	"item": [
 		{
-			"name": "List",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"disabled": true
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"title\":\"TEST\"\n\t\n}"
-				},
-				"url": {
-					"raw": "127.0.0.1:8080/todos/",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "8080",
-					"path": [
-						"todos",
-						""
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "Create",
 			"request": {
 				"method": "POST",
@@ -68,21 +36,22 @@
 			"response": []
 		},
 		{
-			"name": "Update",
+			"name": "List",
 			"request": {
-				"method": "PATCH",
+				"method": "GET",
 				"header": [
 					{
 						"key": "Content-Type",
-						"value": "application/json"
+						"value": "application/json",
+						"disabled": true
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"title\":\"xzczxczxc\",\n\t\"description\":\"dddtest\"\n\t\n}"
+					"raw": "{\n\t\"title\":\"TEST\"\n\t\n}"
 				},
 				"url": {
-					"raw": "127.0.0.1:8080/todos/0670a1cc-4d19-28d7-10f9-d806e9be667a",
+					"raw": "127.0.0.1:8080/todos/",
 					"host": [
 						"127",
 						"0",
@@ -92,39 +61,7 @@
 					"port": "8080",
 					"path": [
 						"todos",
-						"0670a1cc-4d19-28d7-10f9-d806e9be667a"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Comment",
-			"request": {
-				"method": "PATCH",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\"comment\":\"commentcommentcommentcomment\"\n}"
-				},
-				"url": {
-					"raw": "127.0.0.1:8080/todos/803dc556-ed34-6f1f-c22b-d258193dc65a/comment",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "8080",
-					"path": [
-						"todos",
-						"803dc556-ed34-6f1f-c22b-d258193dc65a",
-						"comment"
+						""
 					]
 				}
 			},
@@ -163,6 +100,38 @@
 			"response": []
 		},
 		{
+			"name": "Delete",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"title\":\"TEST\"\n\t\n}"
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/todos/b52ac809-99d8-13b3-f39d-17d732b8ac6a",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"todos",
+						"b52ac809-99d8-13b3-f39d-17d732b8ac6a"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Completed",
 			"request": {
 				"method": "PATCH",
@@ -195,22 +164,21 @@
 			"response": []
 		},
 		{
-			"name": "Delete",
+			"name": "Comment",
 			"request": {
-				"method": "DELETE",
+				"method": "PATCH",
 				"header": [
 					{
 						"key": "Content-Type",
-						"value": "application/json",
-						"disabled": true
+						"value": "application/json"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"title\":\"TEST\"\n\t\n}"
+					"raw": "{\n\"comment\":\"commentcommentcommentcomment\"\n}"
 				},
 				"url": {
-					"raw": "127.0.0.1:8080/todos/b52ac809-99d8-13b3-f39d-17d732b8ac6a",
+					"raw": "127.0.0.1:8080/todos/0670a1cc-4d19-28d7-10f9-d806e9be667a/comment",
 					"host": [
 						"127",
 						"0",
@@ -220,7 +188,8 @@
 					"port": "8080",
 					"path": [
 						"todos",
-						"b52ac809-99d8-13b3-f39d-17d732b8ac6a"
+						"0670a1cc-4d19-28d7-10f9-d806e9be667a",
+						"comment"
 					]
 				}
 			},

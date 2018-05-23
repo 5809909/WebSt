@@ -33,7 +33,7 @@ export default function createRouter() {
         title, description
       })
       .then((id) => {
-        res.send( id);
+        res.send( id );
       });
   });
 
@@ -50,8 +50,8 @@ export default function createRouter() {
 
     todosListService
       .updateTodoItem(id, req.body)
-      .then((res) => {
-        res.send(res);
+      .then((id) => {
+        res.send( id );
       });
   });
 
@@ -61,7 +61,7 @@ export default function createRouter() {
 
     todosListService
       .toggleItemCompleted(id, completed)
-      .then(() => {
+      .then((id) => {
         res.send(id);
       })
   });
@@ -72,17 +72,16 @@ export default function createRouter() {
 
     todosListService
       .toggleItemLike(id, isLiked)
-      .then(() => res.send(id));
+      .then((id) => res.send(id));
   });
 
   router.patch('/:id/comment', (req, res) => {
     const { id } = req.params;
     const { comment } = req.body;
 
-
     todosListService
       .addItemComment(id, comment)
-      .then(() => {
+      .then((id) => {
         res.send(id);
       });
   });

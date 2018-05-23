@@ -1,5 +1,4 @@
 import express from 'express';
-delete process.env["DEBUG_FD"];
 
 import { createRouter } from './server/todos';
 
