@@ -5,10 +5,10 @@ import { createRouter } from './server/todos';
 const app = express();
 
 app.listen(8080, () => {
-    app.use(express.urlencoded());
-    app.use(express.json());
+	app.use(express.urlencoded({extended: true}));
+	app.use(express.json());
 
-    app.use('/todos', createRouter());
+	app.use('/todos', createRouter());
 
     app.use((err, req, res, next) => {
         console.error(err);
