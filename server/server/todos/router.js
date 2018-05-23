@@ -45,7 +45,7 @@ export default function createRouter() {
       .then(result => res.json({ deletedCount: result }));
   });
 
-  router.patch('/:id', (req, res) => {
+  router.patch('/:id/update', (req, res) => {
     const { id } = req.params;
 
     todosListService
@@ -53,6 +53,16 @@ export default function createRouter() {
       .then((id) => {
         res.send( id );
       });
+  });
+
+  router.get('/:id', (req, res) => {
+    const { id } = req.params;
+
+		todosListDAO
+      .getById(id)
+      .then((todo => {
+        res.send( todo );
+      }));
   });
 
   router.patch('/:id/completed', (req, res) => {
