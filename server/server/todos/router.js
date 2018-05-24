@@ -45,7 +45,7 @@ export default function createRouter() {
       .then(result => res.json({ deletedCount: result }));
   });
 
-  router.patch('/:id/update', (req, res) => {
+  router.patch('/:id', (req, res) => {
     const { id } = req.params;
 
     todosListService
@@ -95,6 +95,13 @@ export default function createRouter() {
         res.send(id);
       });
   });
+
+	router.all('/*', function(req, res){
+		res.status(404);
+		res.render('404', {
+			title: 'Express'
+		});
+	});
 
   router.use((err, req, res, next) => {
     if (err instanceof TodoNotFoundError) {
