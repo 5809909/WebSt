@@ -4,7 +4,7 @@ import { createRouter } from './server/todos';
 
 const app = express();
 
-app.listen(8080, () => {
+app.listen(8081, () => {
 	app.use(express.urlencoded({extended: true}));
 	app.use(express.json());
 
@@ -15,5 +15,5 @@ app.listen(8080, () => {
         res.status(500).json({ message:  `Something went wrong` });
     });
 
-    console.info('Server listening on port 8080');
+    console.info('Server listening on port 8081');
 });

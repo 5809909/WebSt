@@ -13,13 +13,6 @@ export const TodosApp = () => {
 			<ListDataContainer/>
 			<Footer/>
 		</div>
-
-
-			// <div>	<Title title={appTitle}/></div>
-			// <MenuContainer/>
-			// <ListDataContainer/>
-
-
 	);
 };
 
