@@ -8,7 +8,7 @@
     "start": "webpack-dev-server --inline --hot --open",
     "test": "jest"
   },
-  "proxy": "http://localhost:8081/todos/",
+  "proxy": "http://localhost:8081",
   "author": "Viktar Krauchyk",
   "license": "ISC",
   "devDependencies": {

@@ -2,64 +2,24 @@ import React from 'react';
 import $ from 'jquery';
 
 class App extends React.Component {
-   render() {
-      return (
-         <div>
-            <Header/>
-            <Content/>
-         </div>
-      );
-   }
-}
+    state = {users: []}
 
-class Header extends React.Component {
-   render() {
-      return (
-         <div>
-            <h1>Title</h1>
-         </div>
-      );
-   }
-}
-
-class Content extends React.Component {
-    constructor() {
-        super()
-        this.state = {
-            data: []
-        }
-    }
     componentDidMount() {
-        $.ajax({
-            url: "http://localhost:8081/todos",
-            type: "GET",
-            dataType: 'json',
-            ContentType: 'application/json',
-            success: function (data) {
-
-                this.setState({data: data});
-                console.log(data)     ;
-            }.bind(this),
-            error: function (jqXHR) {
-                console.log(jqXHR);
-            }.bind(this)
-        })
+        fetch('http://localhost:8081/todos')
+            .then(res => res.json())
+            .then(users => this.setState({ users }));
     }
+
     render() {
         return (
-            <table>
-                <tbody>{this.state.data.map(function (item, key) {
-                return (
-                    <tr key={key}>
-                        <td>{item.title}</td>
-                        <td>{item.description}</td>
-                    </tr>
-                )
-            })}</tbody>
-            </table>
-        )
+            <div className="App">
+                <h1>Users</h1>
+                {this.state.users.map(user =>
+                    <div key={user.id}>{user.username}</div>
+                )}
+            </div>
+        );
     }
 }
-
 
 export default App;
