@@ -82,7 +82,7 @@
 					"raw": "{\n\t\"title\":\"4444\",\n\t\"description\":\"dddtest\"\n\t\n}"
 				},
 				"url": {
-					"raw": "127.0.0.1:8080/todos/55c4ea59-65d1-4ae1-137f-62a5ccd36f6d",
+					"raw": "127.0.0.1:8080/todos/7eb16f15-4b55-13da-32ae-02da9145ef9d",
 					"host": [
 						"127",
 						"0",
@@ -92,7 +92,7 @@
 					"port": "8080",
 					"path": [
 						"todos",
-						"55c4ea59-65d1-4ae1-137f-62a5ccd36f6d"
+						"7eb16f15-4b55-13da-32ae-02da9145ef9d"
 					]
 				}
 			},
@@ -113,7 +113,7 @@
 					"raw": "{\n\t\"title\":\"UPDATED title\",\n\t\"description\":\"UPDATED description\"\n\t\n}"
 				},
 				"url": {
-					"raw": "127.0.0.1:8080/todos/70c5cf3d-9794-b993-5a87-3c0bb19fcdbb/update",
+					"raw": "127.0.0.1:8080/todos/7eb16f15-4b55-13da-32ae-02da9145ef9d",
 					"host": [
 						"127",
 						"0",
@@ -123,8 +123,7 @@
 					"port": "8080",
 					"path": [
 						"todos",
-						"70c5cf3d-9794-b993-5a87-3c0bb19fcdbb",
-						"update"
+						"7eb16f15-4b55-13da-32ae-02da9145ef9d"
 					]
 				}
 			},
@@ -230,19 +229,13 @@
 			"name": "Delete",
 			"request": {
 				"method": "DELETE",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"disabled": true
-					}
-				],
+				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"title\":\"TEST\"\n\t\n}"
+					"raw": ""
 				},
 				"url": {
-					"raw": "127.0.0.1:8080/todos/b52ac809-99d8-13b3-f39d-17d732b8ac6a",
+					"raw": "127.0.0.1:8080/todos/bc6789c5-a12d-0c13-888e-456c8b3fd2d9",
 					"host": [
 						"127",
 						"0",
@@ -252,7 +245,7 @@
 					"port": "8080",
 					"path": [
 						"todos",
-						"b52ac809-99d8-13b3-f39d-17d732b8ac6a"
+						"bc6789c5-a12d-0c13-888e-456c8b3fd2d9"
 					]
 				}
 			},

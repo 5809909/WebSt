@@ -41,6 +41,7 @@
     "webpack-dev-server": "^3.1.4"
   },
   "dependencies": {
+    "cors": "^2.8.4",
     "jquery": "^3.3.1",
     "npm": "^5.10.0",
     "prop-types": "^15.6.1",
