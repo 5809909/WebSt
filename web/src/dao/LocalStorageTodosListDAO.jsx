@@ -1,3 +1,5 @@
+import cors from 'cors';
+
 export default class LocalStorageTodosListDAO {
 	listeners = null;
 
@@ -9,13 +11,15 @@ export default class LocalStorageTodosListDAO {
 		return this.listeners;
 	}
 
-	/**
-	 * @return {TodoObject[]}
-	 */
+
 	getAllTodos() {
-		const todos = JSON.parse(window.localStorage.getItem('todos'));
-		return Promise.resolve(todos || []);
+		return new Promise((rej, res) => {
+			const todos = fetch("http://localhost:8081/todos", {mode: cors})
+				.then(res => JSON.parse(res.json()))
+				.then()
+		});
 	}
+
 
 	/**
 	 * @param {TodoObject[]} todos
