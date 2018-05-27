@@ -93,7 +93,7 @@ describe('TodosListService', () => {
                 description: 'Test Description Change'
             };
 
-            sinon.stub(todosListDAO, 'getAllTodos').returns(Promise.resolve(todos));
+            sinon.stub(todosListDAO, 'getAll').returns(Promise.resolve(todos));
             sinon.spy(todosListService, 'findTodoIndex');
             sinon.spy(todoService, 'updateTodo');
             sinon.spy(todosListDAO, 'saveAllTodos');
@@ -106,7 +106,7 @@ describe('TodosListService', () => {
             todosListService.findTodoIndex.restore();
             todoService.updateTodo.restore();
             todosListDAO.saveAllTodos.restore();
-            todosListDAO.getAllTodos.restore();
+            todosListDAO.getAll.restore();
         });
 
         it('+should return id of updated todo', () => {
@@ -114,7 +114,7 @@ describe('TodosListService', () => {
         });
 
         it('+todosListDAO should load todos', () => {
-            expect(todosListDAO.getAllTodos.calledOnce).toBe(true);
+            expect(todosListDAO.getAll.calledOnce).toBe(true);
         });
 
         it('+findTodoIndex should called once', () => {
@@ -175,7 +175,7 @@ describe('TodosListService', () => {
                 "description": ""
             };
 
-            sinon.stub(todosListDAO, 'getAllTodos').returns(Promise.resolve(todos));
+            sinon.stub(todosListDAO, 'getAll').returns(Promise.resolve(todos));
             sinon.spy(todosListDAO, 'saveAllTodos');
             sinon.spy(todosListService, 'findTodoIndex');
 
@@ -186,7 +186,7 @@ describe('TodosListService', () => {
 
         afterEach(() => {
             todosListDAO.saveAllTodos.restore();
-            todosListDAO.getAllTodos.restore();
+            todosListDAO.getAll.restore();
             todosListService.findTodoIndex.restore();
         });
 
@@ -195,7 +195,7 @@ describe('TodosListService', () => {
         });
 
         it('+todosListDAO should load todos', () => {
-            expect(todosListDAO.getAllTodos.calledOnce).toBe(true);
+            expect(todosListDAO.getAll.calledOnce).toBe(true);
         });
 
         it('+todosListDAO should save updated todos', () => {

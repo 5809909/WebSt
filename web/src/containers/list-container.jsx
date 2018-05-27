@@ -12,11 +12,8 @@ export class ListContainer extends Component {
         this.props.todosListService.unlikeTodoItem(id);
     };
 
-    handleCompleteItem = id => {
-        this.props.todosListService.completeTodoItem(id);
-    };
-    handleUncompleteItem = id => {
-        this.props.todosListService.uncompleteTodoItem(id);
+    handleCompleteItem = (id,completedP) => {
+        this.props.todosListService.completeTodoItem(id,completedP);
     };
 
     handleDeleteItem = id => {
@@ -49,7 +46,6 @@ export class ListContainer extends Component {
                 <List
                     list={list}
                     onClickCompleted={this.handleCompleteItem}
-                    onClickUncompleted={this.handleUncompleteItem}
                     onClickLike={this.handleLikeItem}
                     onClickUnlike={this.handleUnlikeItem}
                     onAddingComment={this.handleAddingComment}

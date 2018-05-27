@@ -5,7 +5,7 @@ import {noop} from '../../utils';
 import Placeholder from './placeholder';
 
 export const List = ({
-                         list, onClickCompleted,onClickUncompleted, onClickLike, onClickUnlike, onAddingComment, onUpdatingItem, onRemoveItem
+                         list, onClickCompleted, onClickLike, onClickUnlike, onAddingComment, onUpdatingItem, onRemoveItem
                      }) => {
     if (!list || !list.length) {
         return <Placeholder/>;
@@ -18,7 +18,6 @@ export const List = ({
                     key={item.id}
                     {...item}
                     onClickCompleted={onClickCompleted}
-                    onClickUncompleted={onClickUncompleted}
                     onClickLike={onClickLike}
                     onClickUnlike={onClickUnlike}
                     onAddingComment={onAddingComment}
@@ -33,7 +32,6 @@ export const List = ({
 List.propTypes = {
     list: PropTypes.array,
     onClickCompleted: PropTypes.func,
-    onClickUncompleted: PropTypes.func,
     onClickLike: PropTypes.func,
     onClickUnlike: PropTypes.func,
     onAddingComment: PropTypes.func,
@@ -44,7 +42,6 @@ List.propTypes = {
 List.defaultProps = {
     list: [],
     onClickCompleted: noop,
-    onClickUncompleted: noop,
     onClickLike: noop,
     onClickUnlike: noop,
     onAddingComment: noop,

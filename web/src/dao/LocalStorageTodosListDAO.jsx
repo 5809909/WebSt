@@ -1,6 +1,7 @@
 import cors from 'cors'
+import TodosListDAO from "./TodosListDAO";
 
-export default class LocalStorageTodosListDAO {
+export default class LocalStorageTodosListDAO extends TodosListDAO  {
     listeners = null;
 
     getListeners() {
@@ -11,11 +12,23 @@ export default class LocalStorageTodosListDAO {
         return this.listeners;
     }
 
+    notifyListeners(todos) {
+        this
+            .getListeners()
+            .forEach((listener) => {
+                listener(todos);
+            });
+    }
 
-    // const todos = JSON.parse(window.localStorage.getItem('todos'));
-    // return Promise.resolve(todos || []);
+    subscribe(listener) {
+        const listeners = this.getListeners();
+        listeners.push(listener);
+        return () => {
+            listeners.filter((l) => listener !== l);
+        };
+    }
 
-    getAllTodos() {
+    getAll() {
         return new Promise((resolve, reject) => {
             fetch("http://localhost:8081/todos", {mode: cors})
                 .then(response => {
@@ -33,12 +46,61 @@ export default class LocalStorageTodosListDAO {
                     }
                 )
                 .catch(function (err) {
-                    console.log('Fetch Error :-S', err);
+                    console.log('Fetch Error: ', err);
                     reject(err);
                 });
 
         });
     }
+
+    create(data) {
+
+        return new Promise ("dfgdfgd");
+    }
+
+    update(id, change,from) {
+        const url= "http://localhost:8081/todos"+id+"/"+from;
+        console.log(url) ;
+        console.log(from) ;
+        return new Promise((resolve, reject) => {
+            fetch("http://localhost:8081/todos", {mode: cors})
+                .then(response => {
+
+                        if (response.status !== 200) {
+                            console.log('Looks like there was a problem. Status Code: ' + response.status);
+                            return;
+                        }
+
+                        response.json()
+                            .then(data => {
+                                resolve(data);
+                                console.log(data);
+                            })
+                    }
+                )
+                .catch(function (err) {
+                    console.log('Fetch Error: ', err);
+                    reject(err);
+                });
+
+        });
+
+        return 1;
+    }
+
+    removeById(id) {
+
+        return 1;
+    }
+
+
+
+
+
+
+
+
+
 
     /**
      * @param {TodoObject[]} todos
@@ -52,23 +114,5 @@ export default class LocalStorageTodosListDAO {
         }
 
         return Promise.resolve();
-    }
-
-    notifyListeners(todos) {
-        this
-            .getListeners()
-            .forEach((listener) => {
-                listener(todos);
-            });
-    }
-
-    subscribe(listener) {
-        const listeners = this.getListeners();
-
-        listeners.push(listener);
-
-        return () => {
-            listeners.filter((l) => listener !== l);
-        };
     }
 }
