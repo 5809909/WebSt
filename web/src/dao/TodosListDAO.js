@@ -19,7 +19,7 @@ export default class TodosListDAO {
    * @param {Promise<TodoItem>} todoItem
    * @return {number}
    */
-  remove(todoItem) {
+  notifyListeners(todos)  {
     throw new Error('Not implemented');
   }
 

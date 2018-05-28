@@ -16,7 +16,7 @@ export default class LocalStorageTodosListDAO extends TodosListDAO {
 
 	notifyListeners(todos) {
 
-		this
+        this
 			.getListeners()
 			.forEach((listener) => {
 				listener(todos);
@@ -42,7 +42,7 @@ export default class LocalStorageTodosListDAO extends TodosListDAO {
 				.then(this.json)
 				.then(data => {
 					resolve(data);
-					console.log(data);
+					console.log("getAll"+JSON.stringify(data));
 				})
 				.catch(err => {
 					console.log('Fetch Error: ', err);
@@ -91,9 +91,6 @@ export default class LocalStorageTodosListDAO extends TodosListDAO {
 
 	update(id, change, from) {
 		const url = URL + id + "/" + from;
-		console.log(url);
-		console.log(change);
-		console.log(from);
 		return new Promise((resolve, reject) => {
 			fetch(url, {
 				method: 'PATCH',
@@ -106,6 +103,7 @@ export default class LocalStorageTodosListDAO extends TodosListDAO {
 				.then(this.status)
 				.then(this.json)
 				.then(data => {
+
 					resolve(data);
 					console.log(data);
 				})
@@ -147,7 +145,6 @@ export default class LocalStorageTodosListDAO extends TodosListDAO {
 		} catch (e) {
 			return Promise.reject(e);
 		}
-
 		return Promise.resolve();
 	}
 }

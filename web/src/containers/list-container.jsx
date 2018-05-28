@@ -44,7 +44,6 @@ export class ListContainer extends Component {
                     list={list}
                     onClickCompleted={this.handleCompleteItem}
                     onClickLike={this.handleLikeItem}
-                    onClickUnlike={this.handleUnlikeItem}
                     onAddingComment={this.handleAddingComment}
                     onUpdatingItem={this.handleUpdatingItem}
                     onRemoveItem={this.handleDeleteItem}
