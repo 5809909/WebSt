@@ -4,16 +4,12 @@ import {List} from "../components/list";
 
 export class ListContainer extends Component {
 
-    handleLikeItem = id => {
-        this.props.todosListService.likeTodoItem(id);
+    handleLikeItem = (id,isliked) => {
+        this.props.todosListService.likeTodoItem(id,isliked);
 		};
 
-    handleUnlikeItem = id => {
-        this.props.todosListService.unlikeTodoItem(id);
-    };
-
-    handleCompleteItem = (id,completedP) => {
-        this.props.todosListService.completeTodoItem(id,completedP);
+    handleCompleteItem = (id,completed) => {
+        this.props.todosListService.completeTodoItem(id,completed);
     };
 
     handleDeleteItem = id => {
@@ -34,6 +30,7 @@ export class ListContainer extends Component {
 
     handleAddingItem = (data) => {
         if (data.title) {
+            console.log("data"+data.title);
         this.props.todosListService.createTodoItem(data)
         .then((todosId) => console.log(todosId))}
     };

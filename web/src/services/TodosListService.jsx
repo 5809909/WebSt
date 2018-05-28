@@ -21,15 +21,15 @@ export default class TodosListService {
 	 * @return {Promise<string>}
 	 */
 	createTodoItem(data) {
-        const todo = this.todoService.createTodo(data);
-        return this.todosListDAO.create(todo);
+		return this.todosListDAO.create(data);
     }
 	/**
 	 * @param {string} todoId
 	 * @param {Object} change
+	 * @param {string} from
 	 * @return {Promise<string>}
 	 */
-	updateTodoItem(todoId, change,from) {
+	updateTodoItem(todoId, change,from="update") {
 		return this.todosListDAO.update(todoId, change,from)
 			.then(() => todoId);
 	}
@@ -39,28 +39,20 @@ export default class TodosListService {
 	 * @param {string} commentText
 	 */
 	addTodoItemComment(todoId, commentText) {
-		this.updateTodoItem(todoId, {comment: commentText});
-        console.log(commentText);
+		this.updateTodoItem(todoId, {comment: commentText},"comment");
 	}
 
 	/**
 	 * @param {string} todoId
+	 * @param {boolean} isliked
 	 */
-	likeTodoItem(todoId) {
-		this.updateTodoItem(todoId, {isLiked: true});
-        console.log("is liked");
+	likeTodoItem(todoId, isliked) {
+		this.updateTodoItem(todoId, {isLiked: isliked},"isliked");
 	}
 
 	/**
 	 * @param {string} todoId
-	 */
-	unlikeTodoItem(todoId) {
-		this.updateTodoItem(todoId, {isLiked: false});
-        console.log("is unliked");
-	}
-
-	/**
-	 * @param {string} todoId
+	 * @param {boolean} completed
 */
 	completeTodoItem(todoId,completed) {
 		this.updateTodoItem(todoId, {completed: completed},"completed");

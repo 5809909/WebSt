@@ -3,19 +3,10 @@ import { guid } from '../utils';
 
 export default class TodoService {
 	createTodo(data) {
-		const now = new Date();
-		return {
-            id: guid(),
-            completed:false,
-            isLiked: false,
-            createdDate: now,
-            comment: null,
-            createdByUserId: ACCOUNT_ID,
-			lastUpdateDate: now,
-			lastUpdateByUserId: ACCOUNT_ID,
-			...data,
+		console.log("data3 "+data.title);
+
+		data
 		};
-	}
 
 	updateTodo(change, todo) {
 		return {

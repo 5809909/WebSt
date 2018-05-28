@@ -1,202 +1,256 @@
 {
-	"id": "6186e095-822b-45d5-ba04-a3cf2b6bff69",
-	"name": "todos",
-	"description": null,
-	"auth": null,
-	"events": null,
-	"variables": null,
-	"order": [
-		"20cbc904-7921-4eda-9c58-cf0b9e3c3efa",
-		"5a020d0f-0b40-4ccc-8c90-b77b110f7070",
-		"740bfb01-19f1-4ba4-a168-2e31c929ee91",
-		"dda58d1e-896d-4db3-add9-87ee6fed9aa6",
-		"a77cf204-76d2-4e34-9a2a-3738bc36c99e",
-		"611cf78c-7291-4608-9473-0a2e69141d18",
-		"392aa559-0c66-4d7d-9307-e7f934d4838c",
-		"21f14cfa-b983-4ca9-889e-66ed7ef2e77a"
-	],
-	"folders_order": [],
-	"folders": [],
-	"requests": [
+	"info": {
+		"_postman_id": "a3ec5dfa-bc4d-4fbf-805b-ce6185b5c300",
+		"name": "todos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
 		{
-			"id": "20cbc904-7921-4eda-9c58-cf0b9e3c3efa",
 			"name": "List",
-			"url": "127.0.0.1:8081/todos/",
-			"description": null,
-			"data": [],
-			"dataMode": "raw",
-			"headerData": [
-				{
-					"key": "Content-Type",
-					"value": "application/json",
-					"enabled": false
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"title\":\"TEST\"\n\t\n}"
+				},
+				"url": {
+					"raw": "127.0.0.1:8081/todos/",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8081",
+					"path": [
+						"todos",
+						""
+					]
 				}
-			],
-			"method": "GET",
-			"pathVariableData": [],
-			"queryParams": [],
-			"auth": null,
-			"events": null,
-			"folder": null,
-			"rawModeData": "{\n\t\"title\":\"TEST\"\n\t\n}",
-			"headers": "//Content-Type: application/json\n",
-			"pathVariables": {}
+			},
+			"response": []
 		},
 		{
-			"id": "21f14cfa-b983-4ca9-889e-66ed7ef2e77a",
-			"name": "Delete",
-			"url": "127.0.0.1:8081/todos/bc6789c5-a12d-0c13-888e-456c8b3fd2d9",
-			"description": null,
-			"data": [],
-			"dataMode": "raw",
-			"headerData": [],
-			"method": "DELETE",
-			"pathVariableData": [],
-			"queryParams": [],
-			"auth": null,
-			"events": null,
-			"folder": null,
-			"rawModeData": "",
-			"headers": "",
-			"pathVariables": {}
-		},
-		{
-			"id": "392aa559-0c66-4d7d-9307-e7f934d4838c",
-			"name": "Completed",
-			"url": "127.0.0.1:8081/todos/63e39cbb-5a89-25b9-4f33-a837872cf082/completed",
-			"description": null,
-			"data": [],
-			"dataMode": "raw",
-			"headerData": [
-				{
-					"key": "Content-Type",
-					"value": "application/json"
-				}
-			],
-			"method": "PATCH",
-			"pathVariableData": [],
-			"queryParams": [],
-			"auth": null,
-			"events": null,
-			"folder": null,
-			"rawModeData": "{\n\t\"completed\":true\n}",
-			"headers": "Content-Type: application/json\n",
-			"pathVariables": {}
-		},
-		{
-			"id": "5a020d0f-0b40-4ccc-8c90-b77b110f7070",
 			"name": "Create",
-			"url": "127.0.0.1:8081/todos",
-			"description": null,
-			"data": [],
-			"dataMode": "raw",
-			"headerData": [
-				{
-					"key": "Content-Type",
-					"value": "application/json"
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"title\":\"CREATED title\",\n\t\"description\":\"CREATED description\"\n\t\n}"
+				},
+				"url": {
+					"raw": "127.0.0.1:8081/todos",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8081",
+					"path": [
+						"todos"
+					]
 				}
-			],
-			"method": "POST",
-			"pathVariableData": [],
-			"queryParams": [],
-			"auth": null,
-			"events": null,
-			"folder": null,
-			"rawModeData": "{\n\t\"title\":\"CREATED title\",\n\t\"description\":\"CREATED description\"\n\t\n}",
-			"headers": "Content-Type: application/json\n",
-			"pathVariables": {}
+			},
+			"response": []
 		},
 		{
-			"id": "611cf78c-7291-4608-9473-0a2e69141d18",
-			"name": "Like",
-			"url": "127.0.0.1:8081/todos/63e39cbb-5a89-25b9-4f33-a837872cf082/like",
-			"description": null,
-			"data": [],
-			"dataMode": "raw",
-			"headerData": [
-				{
-					"key": "Content-Type",
-					"value": "application/json"
-				}
-			],
-			"method": "PATCH",
-			"pathVariableData": [],
-			"queryParams": [],
-			"auth": null,
-			"events": null,
-			"folder": null,
-			"rawModeData": "{\n\"isLiked\":true\n}",
-			"headers": "Content-Type: application/json\n",
-			"pathVariables": {}
-		},
-		{
-			"id": "740bfb01-19f1-4ba4-a168-2e31c929ee91",
 			"name": "Read",
-			"url": "127.0.0.1:8081/todos/63e39cbb-5a89-25b9-4f33-a837872cf082",
-			"description": null,
-			"data": [],
-			"dataMode": "raw",
-			"headerData": [
-				{
-					"key": "Content-Type",
-					"value": "application/json"
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"title\":\"4444\",\n\t\"description\":\"dddtest\"\n\t\n}"
+				},
+				"url": {
+					"raw": "127.0.0.1:8081/todos/9e528fe4-db9a-fe98-cc75-5c87d57d1a76",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8081",
+					"path": [
+						"todos",
+						"9e528fe4-db9a-fe98-cc75-5c87d57d1a76"
+					]
 				}
-			],
-			"method": "GET",
-			"pathVariableData": [],
-			"queryParams": [],
-			"auth": null,
-			"events": null,
-			"folder": null,
-			"rawModeData": "{\n\t\"title\":\"4444\",\n\t\"description\":\"dddtest\"\n\t\n}",
-			"headers": "Content-Type: application/json\n",
-			"pathVariables": {}
+			},
+			"response": []
 		},
 		{
-			"id": "a77cf204-76d2-4e34-9a2a-3738bc36c99e",
-			"name": "Comment",
-			"url": "127.0.0.1:8081/todos/63e39cbb-5a89-25b9-4f33-a837872cf082/comment",
-			"description": null,
-			"data": [],
-			"dataMode": "raw",
-			"headerData": [
-				{
-					"key": "Content-Type",
-					"value": "application/json"
-				}
-			],
-			"method": "PATCH",
-			"pathVariableData": [],
-			"queryParams": [],
-			"auth": null,
-			"events": null,
-			"folder": null,
-			"rawModeData": "{\n\"comment\":\"ADEDD comment\"\n}",
-			"headers": "Content-Type: application/json\n",
-			"pathVariables": {}
-		},
-		{
-			"id": "dda58d1e-896d-4db3-add9-87ee6fed9aa6",
 			"name": "Update",
-			"url": "127.0.0.1:8081/todos/63e39cbb-5a89-25b9-4f33-a837872cf082",
-			"description": null,
-			"data": [],
-			"dataMode": "raw",
-			"headerData": [
-				{
-					"key": "Content-Type",
-					"value": "application/json"
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"title\":\"UPDATED title\",\n\t\"description\":\"UPDATED description\"\n\t\n}"
+				},
+				"url": {
+					"raw": "127.0.0.1:8081/todos/9e528fe4-db9a-fe98-cc75-5c87d57d1a76/update",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8081",
+					"path": [
+						"todos",
+						"9e528fe4-db9a-fe98-cc75-5c87d57d1a76",
+						"update"
+					]
 				}
-			],
-			"method": "PATCH",
-			"pathVariableData": [],
-			"queryParams": [],
-			"auth": null,
-			"events": null,
-			"folder": null,
-			"rawModeData": "{\n\t\"title\":\"UPDATED title\",\n\t\"description\":\"UPDATED description\"\n\t\n}",
-			"headers": "Content-Type: application/json\n",
-			"pathVariables": {}
+			},
+			"response": []
+		},
+		{
+			"name": "Comment",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"comment\":\"ADEDD comment\"\n}"
+				},
+				"url": {
+					"raw": "127.0.0.1:8081/todos/9e528fe4-db9a-fe98-cc75-5c87d57d1a76/comment",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8081",
+					"path": [
+						"todos",
+						"9e528fe4-db9a-fe98-cc75-5c87d57d1a76",
+						"comment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Like",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"isLiked\":true\n}"
+				},
+				"url": {
+					"raw": "127.0.0.1:8081/todos/9e528fe4-db9a-fe98-cc75-5c87d57d1a76/isliked",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8081",
+					"path": [
+						"todos",
+						"9e528fe4-db9a-fe98-cc75-5c87d57d1a76",
+						"isliked"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Completed",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"completed\":true\n}"
+				},
+				"url": {
+					"raw": "127.0.0.1:8081/todos/9e528fe4-db9a-fe98-cc75-5c87d57d1a76/completed",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8081",
+					"path": [
+						"todos",
+						"9e528fe4-db9a-fe98-cc75-5c87d57d1a76",
+						"completed"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/todos/bc6789c5-a12d-0c13-888e-456c8b3fd2d9",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"todos",
+						"bc6789c5-a12d-0c13-888e-456c8b3fd2d9"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

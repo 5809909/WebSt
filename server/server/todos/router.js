@@ -28,12 +28,13 @@ export default function createRouter() {
 
   router.post('/', (req, res) => {
     const { title, description } = req.body;
+    console.log("IN "+JSON.stringify(req.body));
     todosListService
       .createTodoItem({
         title, description
       })
       .then((id) => {
-        res.send( id );
+        res.send( {id} );
       });
   });
 
@@ -45,13 +46,13 @@ export default function createRouter() {
       .then(result => res.json({ deletedCount: result }));
   });
 
-  router.patch('/:id', (req, res) => {
+  router.patch('/:id/update', (req, res) => {
     const { id } = req.params;
 
     todosListService
       .updateTodoItem(id, req.body)
       .then((id) => {
-        res.send( id );
+        res.send( {id });
       });
   });
 
@@ -72,17 +73,17 @@ export default function createRouter() {
     todosListService
       .toggleItemCompleted(id, completed)
       .then((id) => {
-        res.send(id);
+        res.send({id});
       })
   });
 
-  router.patch('/:id/like', (req, res) => {
+  router.patch('/:id/isliked', (req, res) => {
     const { id } = req.params;
     const { isLiked } = req.body;
 
     todosListService
       .toggleItemLike(id, isLiked)
-      .then((id) => res.send(id));
+      .then((id) => res.send({id}));
   });
 
   router.patch('/:id/comment', (req, res) => {
@@ -92,7 +93,7 @@ export default function createRouter() {
     todosListService
       .addItemComment(id, comment)
       .then((id) => {
-        res.send(id);
+        res.send({id});
       });
   });
 

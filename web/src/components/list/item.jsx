@@ -40,7 +40,6 @@ export class Item extends PureComponent {
             isLiked,
             onClickCompleted,
             onClickLike,
-            onClickUnlike,
             onRemoveItem
         } = this.props;
         return (
@@ -55,7 +54,7 @@ export class Item extends PureComponent {
                     <span className="todo-text-block__icon">
                         <i
                         className={`fa fa-heart semitransparent ${isLiked ? "fa-heart-active" : ""}`}
-                        onClick={() => isLiked ? onClickUnlike(id) : onClickLike(id)}
+                        onClick={() => isLiked ? onClickLike(id,!isLiked) : onClickLike(id,!isLiked)}
                         />
                     </span>
 

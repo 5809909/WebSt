@@ -26,7 +26,7 @@ export default class TodosListService {
      */
     createTodoItem(todoChange) {
         const todo = this.todoService.createTodo(todoChange);
-        return this.todosListDAO.createTodoItem(todo);
+        return this.todosListDAO.create(todo);
     }
 
     /**

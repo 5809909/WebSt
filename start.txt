@@ -1,0 +1,9 @@
+
+npx concurrently "cd server && npm start" "cd web && npm start" 
+https://www.fullstackreact.com/articles/using-create-react-app-with-a-server/
+
+react frontend express backend
+https://www.fullstackreact.com/articles/using-create-react-app-with-a-server/
+
+
+https://www.youtube.com/watch?v=PjRmpCg6KeU
