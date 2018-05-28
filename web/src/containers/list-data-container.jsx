@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import LocalStorageTodosListDAO from '../dao/LocalStorageTodosListDAO';
+import LocalStorageTodosListDAO from '../dao/BackendTodosListDAO';
 import TodosListService from '../services/TodosListService';
 import TodoService from '../services/TodoService';
 

@@ -1,10 +1,8 @@
-import cors from 'cors'
 import TodosListDAO from "./TodosListDAO";
 import {URL} from "../constants";
 
-export default class LocalStorageTodosListDAO extends TodosListDAO {
+export default class BackendTodosListDAO extends TodosListDAO {
 	listeners = null;
-
 
 	getListeners() {
 		if (!this.listeners) {
@@ -42,7 +40,6 @@ export default class LocalStorageTodosListDAO extends TodosListDAO {
 				.then(this.json)
 				.then(data => {
 					resolve(data);
-					console.log("getAll"+JSON.stringify(data));
 				})
 				.catch(err => {
 					console.log('Fetch Error: ', err);
@@ -80,7 +77,7 @@ export default class LocalStorageTodosListDAO extends TodosListDAO {
 						.then(data => {
 							resolve(data);
 							console.log("resolve data "+JSON.stringify(data));
-				//			this.notifyListeners(JSON.stringify(data));
+                            this.saveAllTodos();
 						})
 						.catch(function (err) {
 							console.log('Fetch Error: ', err);
@@ -94,7 +91,6 @@ export default class LocalStorageTodosListDAO extends TodosListDAO {
 		return new Promise((resolve, reject) => {
 			fetch(url, {
 				method: 'PATCH',
-				mode: cors,
 				headers: {
 					"Content-type": "application/json; charset=UTF-8"
 				},
@@ -106,6 +102,7 @@ export default class LocalStorageTodosListDAO extends TodosListDAO {
 
 					resolve(data);
 					console.log(data);
+                    this.saveAllTodos();
 				})
 				.catch(function (err) {
 					console.log('Fetch Error: ', err);
@@ -116,32 +113,33 @@ export default class LocalStorageTodosListDAO extends TodosListDAO {
 	}
 
 	removeById(id) {
-		return new Promise((resolve, reject) => {
-			const url = URL + id ;
-			fetch(url, {
-				method: 'DELETE',
-			})
-				.then(this.status)
-				.then(this.json)
-				.then(data => {
-					resolve(data);
-					console.log(data);
-				})
-				.catch(err => {
-					console.log('Fetch Error: ', err);
-					reject(err);
-				});
+        return new Promise((resolve, reject) => {
+            const url = URL + id;
+            fetch(url, {
+                method: 'DELETE',
+            })
+                .then(this.status)
+                .then(this.json)
+                .then(data => {
+                    resolve(data);
+                    console.log(data);
+                    this.saveAllTodos();
+                })
+                .catch(err => {
+                    console.log('Fetch Error: ', err);
+                    reject(err);
+                });
 
-		});
-	}
+        });
+    };
 
-	/**
-	 * @param {TodoObject[]} todos
-	 */
-	saveAllTodos(todos) {
+
+	saveAllTodos() {
 		try {
-			window.localStorage.setItem('todos', JSON.stringify(todos));
-			this.notifyListeners(todos);
+
+			this.getAll().then(todos=>
+			this.notifyListeners(todos));
+
 		} catch (e) {
 			return Promise.reject(e);
 		}

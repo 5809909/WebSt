@@ -16,14 +16,6 @@ export default class TodosListDAO {
   }
 
   /**
-   * @param {Promise<TodoItem>} todoItem
-   * @return {number}
-   */
-  notifyListeners(todos)  {
-    throw new Error('Not implemented');
-  }
-
-  /**
    * @param {string} id
    * @return {Promise<TodoItem>}
    */
@@ -44,5 +36,8 @@ export default class TodosListDAO {
    */
   getAll() {
     throw new Error('Not implemented');
+  }
+  saveAllTodos(){
+      throw new Error('Not implemented');
   }
 }

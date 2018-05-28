@@ -58,8 +58,6 @@ export default class TodosListService {
 */
 	completeTodoItem(todoId,completed) {
 		this.updateTodoItem(todoId, {completed: completed},"completed");
-		this.todosListDAO.getAll().then(todos=>
-        this.todosListDAO.notifyListeners(todos));
 	}
 
 	/**
