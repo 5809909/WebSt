@@ -1,7 +1,7 @@
 import sinon from 'sinon';
 
 import TodosListService from './TodosListService';
-import DummyTodosListDAO from '../dao/DummyTodosListDAO';
+import DummyTodosListDAO from './DummyTodosListDAO';
 import TodoService from './TodoService';
 
 describe('TodosListService', () => {
@@ -33,7 +33,7 @@ describe('TodosListService', () => {
             };
 
             sinon.stub(todoService, 'createTodo').returns(justCreatedTodo);
-            sinon.spy(todosListDAO, 'saveAllTodos');
+            sinon.spy(todosListDAO, 'create');
 
             return todosListService.createTodoItem(todoParams).then((r) => {
                 result = r;
@@ -43,14 +43,14 @@ describe('TodosListService', () => {
 
         afterEach(() => {
             todoService.createTodo.restore();
-            todosListDAO.saveAllTodos.restore();
+            todosListDAO.create.restore();
         });
 
-        it('should return id of created todo', () => {
-            expect(result).toBe(justCreatedTodo.id);
+        it('should return JSON with id of created todo', () => {
+            expect(result).toBe(justCreatedTodo);
         });
 
-        it('todo service should be called for creating new todo', () => {
+        it('todo service should be called once for creating new todo', () => {
             expect(todoService.createTodo.calledOnce).toBe(true);
         });
 
@@ -58,13 +58,12 @@ describe('TodosListService', () => {
             expect(todoService.createTodo.getCall(0).args[0]).toBe(todoParams);
         });
 
-        it('todosListDAO should save all todos', () => {
-            expect(todosListDAO.saveAllTodos.calledOnce).toBe(true);
+        it('todosListDAO should call create once', () => {
+            expect(todosListDAO.create.calledOnce).toBe(true);
         });
     });
 
     describe('when updating todo', () => {
-        let resultId;
         let change;
         let todos;
         let number;
@@ -93,58 +92,119 @@ describe('TodosListService', () => {
                 description: 'Test Description Change'
             };
 
-            sinon.stub(todosListDAO, 'getAll').returns(Promise.resolve(todos));
-            sinon.spy(todosListService, 'findTodoIndex');
+            sinon.stub(todosListDAO, 'getById').returns(todos[number]);
             sinon.spy(todoService, 'updateTodo');
-            sinon.spy(todosListDAO, 'saveAllTodos');
-            return todosListService.updateTodoItem(todos[number].id, change).then((r) => {
-                resultId = r;
-            });
+            sinon.spy(todosListDAO, 'update');
+            return todosListService.updateTodoItem(todos[number].id, change)
         });
 
         afterEach(() => {
-            todosListService.findTodoIndex.restore();
+            todosListDAO.getById.restore();
             todoService.updateTodo.restore();
-            todosListDAO.saveAllTodos.restore();
-            todosListDAO.getAll.restore();
+            todosListDAO.update.restore();
+
         });
 
-        it('+should return id of updated todo', () => {
-            expect(resultId).toBe(todos[number].id);
+        it('getById should get todo and called once', () => {
+            expect(todosListDAO.getById.calledOnce).toBe(true);
         });
 
-        it('+todosListDAO should load todos', () => {
-            expect(todosListDAO.getAll.calledOnce).toBe(true);
+        it('updateTodo should create updated todo and called once', () => {
+            expect(todoService.updateTodo.calledOnce).toBeTruthy();
         });
 
-        it('+findTodoIndex should called once', () => {
-            expect(todosListService.findTodoIndex.calledOnce).toBeTruthy();
+        it('update should be called for saving todo in db', () => {
+            expect(todosListDAO.update.calledOnce).toBe(true);
         });
 
-        it('+updateTodo should be called for updating todo', () => {
-            expect(todoService.updateTodo.calledOnce).toBe(true);
+        it('getById should be called with appropriate params', () => {
+            expect(todosListDAO.getById.getCall(0).args[0]).toBe(todos[number].id);
         });
 
-        it('+todosListDAO should save updated todos', () => {
-            expect(todosListDAO.saveAllTodos.calledOnce).toBeTruthy();
+        it('getById returns target todo', () => {
+            expect(todosListDAO.getById.returnValues[0]).toBe(todos[number]);
         });
 
-        it('+findTodoIndex returns index of target todo', () => {
-            expect(todosListService.findTodoIndex.getCall(0).args[0]).toBe(todos[number].id);
-            expect(todosListService.findTodoIndex.returnValues[0]).toBe(number);
-        });
-
-        it('+updateTodo should be called with appropriate params', () => {
+        it('updateTodo should be called with appropriate param change', () => {
             expect(todoService.updateTodo.getCall(0).args[0]).toBe(change);
+        });
+
+        it('updateTodo should be called with appropriate param todo', () => {
             expect(todoService.updateTodo.getCall(0).args[1]).toBe(todos[number]);
+        });
+
+        it('updateTodo should return right updatedTodo ', () => {
             expect(todoService.updateTodo.returnValues[0]).toEqual(expect.objectContaining(change));
         });
 
-        it('+updateTodo should save appropriate params', () => {
-            console.log(todosListDAO.saveAllTodos.getCall(0).args[0]);
-            expect(todosListDAO.saveAllTodos.getCall(0).args[0][number]).toEqual(expect.objectContaining(change));
+        it('update should be called with appropriate params', () => {
+            expect(todosListDAO.update.getCall(0).args[0]).toEqual(expect.objectContaining(change));
         });
     });
+
+    describe('when updating todo with wrong ID', () => {
+        let change;
+        let todos;
+        let number;
+
+        beforeAll(() => {
+            todosListDAO = new DummyTodosListDAO();
+            todoService = new TodoService();
+        });
+
+        beforeEach(() => {
+            number = 1;
+            todos = [
+                {
+                    "id": "1234567890n",
+                    "title": "1",
+                    "description": ""
+                },
+                {
+                    "id": "1234567890",
+                    "title": "1",
+                    "description": ""
+                }];
+
+            change = {
+                title: 'Test Change',
+                description: 'Test Description Change'
+            };
+
+            sinon.stub(todosListDAO, 'getById').returns(null);
+            sinon.spy(todoService, 'updateTodo');
+            sinon.spy(todosListDAO, 'update');
+            return todosListService.updateTodoItem(todos[number].id, change)
+        });
+
+        afterEach(() => {
+            todosListDAO.getById.restore();
+            todoService.updateTodo.restore();
+            todosListDAO.update.restore();
+
+        });
+
+        it('getById should get todo and called once', () => {
+            expect(todosListDAO.getById.calledOnce).toBe(true);
+        });
+
+        it('updateTodo should not called', () => {
+            expect(todoService.updateTodo.calledOnce).toBe(false);
+        });
+
+        it('update should not called', () => {
+            expect(todosListDAO.update.calledOnce).toBe(false);
+        });
+
+        it('getById should be called with appropriate params', () => {
+            expect(todosListDAO.getById.getCall(0).args[0]).toBe(todos[number].id);
+        });
+
+        // it('update should be called with appropriate params', () => {
+        //     expect(todosListService.updateTodoItem.valueOf).toBe(false);
+        // });
+    });
+
 
     describe('when removing todo', () => {
         let resultId;
@@ -175,9 +235,7 @@ describe('TodosListService', () => {
                 "description": ""
             };
 
-            sinon.stub(todosListDAO, 'getAll').returns(Promise.resolve(todos));
-            sinon.spy(todosListDAO, 'saveAllTodos');
-            sinon.spy(todosListService, 'findTodoIndex');
+            sinon.spy(todosListDAO, 'removeById');
 
             return todosListService.removeTodoItem(removedTodo.id).then((r) => {
                 resultId = r;
@@ -185,138 +243,87 @@ describe('TodosListService', () => {
         });
 
         afterEach(() => {
-            todosListDAO.saveAllTodos.restore();
-            todosListDAO.getAll.restore();
-            todosListService.findTodoIndex.restore();
+            todosListDAO.removeById.restore();
         });
 
-        it('should return id of removed todo', () => {
-            expect(resultId).toBe(removedTodo.id);
+        it('removeById should be called once', () => {
+            expect(todosListDAO.removeById.calledOnce).toBe(true);
         });
 
-        it('+todosListDAO should load todos', () => {
-            expect(todosListDAO.getAll.calledOnce).toBe(true);
+        it('removeById should be called with appropriate params', () => {
+            expect(todosListDAO.removeById.getCall(0).args[0]).toBe('1234567890');
         });
 
-        it('+todosListDAO should save updated todos', () => {
-            expect(todosListDAO.saveAllTodos.calledOnce).toBeTruthy();
+        it('resultId should return 1 (number of removed todos)', () => {
+            expect(resultId).toBe(1);
         });
 
-        it('+findTodoIndex returns index of target todo', () => {
-            expect(todosListService.findTodoIndex.getCall(0).args[0]).toBe('1234567890');
-            expect(todosListService.findTodoIndex.returnValues[0]).toBe(1);
-        });
-
-        it('+todosListDAO should save appropriate params', () => {
-            console.log(todosListDAO.saveAllTodos.getCall(0).args[0]);
-            expect(todosListDAO.saveAllTodos.getCall(0).args[0][0]).not.toEqual(expect.objectContaining(removedTodo));
-        });
     });
 
     describe('when add Comment to TodoItem', () => {
-        let todoItemId = 'todoId';
-        let comment = 'Comment';
+        let todoId = 'todoId';
+        let commentText = 'Comment';
 
         beforeEach(() => {
             sinon.spy(todosListService, 'updateTodoItem');
-            todosListService.addTodoItemComment(todoItemId, comment)
+            todosListService.addItemComment(todoId, commentText)
         });
 
         afterEach(() => {
             todosListService.updateTodoItem.restore();
         });
 
-        it('should be called once', () => {
+        it('updateTodoItem should be called once', () => {
             expect(todosListService.updateTodoItem.calledOnce).toBe(true);
         });
 
         it('should call updateTodoItem with correct parameters', () => {
-            expect(todosListService.updateTodoItem.calledWith(todoItemId, {comment: comment})).toBe(true);
+            expect(todosListService.updateTodoItem.calledWith(todoId, {comment: commentText})).toBe(true);
         });
     });
 
     describe('when like TodoItem', () => {
-        let todoItemId = 'todoId';
+        let todoId = 'todoId';
 
         beforeEach(() => {
             sinon.spy(todosListService, 'updateTodoItem');
-            todosListService.likeTodoItem(todoItemId)
+            todosListService.toggleItemLike(todoId, true)
         });
 
         afterEach(() => {
             todosListService.updateTodoItem.restore();
         });
 
-        it('should be called once', () => {
+        it('updateTodoItem should be called once', () => {
             expect(todosListService.updateTodoItem.calledOnce).toBe(true);
         });
 
-        it('should call updateTodoItem with correct parameters', () => {
-            expect(todosListService.updateTodoItem.calledWith(todoItemId, {isLiked: true})).toBe(true);
+        it('updateTodoItem should be called with correct parameters', () => {
+            expect(todosListService.updateTodoItem.calledWith(todoId, {isLiked: true})).toBe(true);
         });
     });
 
-    describe('when unlike TodoItem', () => {
-        let todoItemId = 'todoId';
-
-        beforeEach(() => {
-            sinon.spy(todosListService, 'updateTodoItem');
-            todosListService.unlikeTodoItem(todoItemId)
-        });
-
-        afterEach(() => {
-            todosListService.updateTodoItem.restore();
-        });
-
-        it('should be called once', () => {
-            expect(todosListService.updateTodoItem.calledOnce).toBe(true);
-        });
-
-        it('should call updateTodoItem with correct parameters', () => {
-            expect(todosListService.updateTodoItem.calledWith(todoItemId, {isLiked: false})).toBe(true);
-        });
-    });
 
     describe('when complete TodoItem', () => {
-        let todoItemId = 'todoId';
+        let todoId = 'todoId';
 
         beforeEach(() => {
             sinon.spy(todosListService, 'updateTodoItem');
-            todosListService.completeTodoItem(todoItemId)
+            todosListService.toggleItemCompleted(todoId, false)
         });
 
         afterEach(() => {
             todosListService.updateTodoItem.restore();
         });
 
-        it('should be called once', () => {
+        it('updateTodoItem should be called once', () => {
             expect(todosListService.updateTodoItem.calledOnce).toBe(true);
         });
 
-        it('should call updateTodoItem with correct parameters', () => {
-            expect(todosListService.updateTodoItem.calledWith(todoItemId, {completed: true})).toBe(true);
+        it('updateTodoItem should be called with correct parameters', () => {
+            expect(todosListService.updateTodoItem.calledWith(todoId, {completed: false})).toBe(true);
         });
     });
 
-    describe('when uncomplete TodoItem', () => {
-        let todoItemId = 'todoId';
-
-        beforeEach(() => {
-            sinon.spy(todosListService, 'updateTodoItem');
-            todosListService.uncompleteTodoItem(todoItemId)
-        });
-
-        afterEach(() => {
-            todosListService.updateTodoItem.restore();
-        });
-
-        it('should be called once', () => {
-            expect(todosListService.updateTodoItem.calledOnce).toBe(true);
-        });
-
-        it('should call updateTodoItem with correct parameters', () => {
-            expect(todosListService.updateTodoItem.calledWith(todoItemId, {completed: false})).toBe(true);
-        });
-    });
 });
 
