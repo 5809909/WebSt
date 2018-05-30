@@ -1,9 +1,10 @@
 import express from 'express';
 import { MongoClient } from 'mongodb';
+ import  joi  from 'joi';
 
 import { TodoService, TodosListService } from '../../core/todos';
 import { MONGO_URI } from '../constants';
-
+import expressJoiMiddleware from 'express-joi-middleware';
 import TodosListMongoDAO from './TodosListMongoDAO';
 import TodoNotFoundError from './TodoNotFoundError';
 
@@ -17,6 +18,15 @@ export default function createRouter() {
   const todosListDAO = new TodosListMongoDAO(MongoClient, MONGO_URI);
   const todoService = new TodoService();
   const todosListService = new TodosListService(todosListDAO, todoService);
+  const bodySchema= {
+		body: {
+			title: joi.string().max(10).required(),
+      description:joi.string(),
+		},
+	};
+	const options = {
+		wantResponse: true,
+	};
 
   router.get('/', (req, res) => {
     todosListDAO
@@ -26,7 +36,8 @@ export default function createRouter() {
       });
   });
 
-  router.post('/', (req, res) => {
+  router.post('/',expressJoiMiddleware(bodySchema, options), (req, res) => {
+
     const { title, description } = req.body;
     console.log("IN "+JSON.stringify(req.body));
     todosListService
@@ -46,7 +57,7 @@ export default function createRouter() {
       .then(result => res.json({ deletedCount: result }));
   });
 
-  router.patch('/:id/update', (req, res) => {
+  router.patch('/:id/update',expressJoiMiddleware(bodySchema, options), (req, res) => {
     const { id } = req.params;
 
     todosListService
