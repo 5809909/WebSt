@@ -2,7 +2,6 @@ import React, {PureComponent} from "react";
 import {Form} from "../form";
 import {Input} from "../form/input";
 
-require('font-awesome/css/font-awesome.css');
 
 export class Item extends PureComponent {
     state = {
